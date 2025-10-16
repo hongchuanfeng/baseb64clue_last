@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+    <meta name="keywords" content="免费在线Base64工具：图像到Base64/SQL Base64/多格式解码">
+    <meta name="description" content="免费在线Base64工具：图像到Base64/SQL Base64/多格式解码。">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="canonical" href="https://www.base64.club/">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* 响应式导航栏 */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        /* 为不同的Base编码图标设置不同颜色 */
+        .nav-category[href*="base32"] {
+            filter: hue-rotate(120deg) saturate(1.5);
+        }
+        .nav-category[href*="base58"] {
+            filter: hue-rotate(60deg) saturate(1.5);
+        }
+        .nav-category[href*="base62"] {
+            filter: hue-rotate(0deg) saturate(1.5);
+        }
+        .nav-category[href*="base85"] {
+            filter: hue-rotate(280deg) saturate(1.5);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* 工具卡片布局 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .tool-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            color: #444;
+            margin: 2rem 0 1rem;
+            padding-left: 1rem;
+        }
+
+        /* 移动端样式 */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                z-index: 1000;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.75rem 1rem;
+                text-decoration: none;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                transition: background-color 0.3s;
+            }
+
+            .nav-category:hover {
+                background-color: #f8f9fa;
+            }
+
+            .nav-category:last-child {
+                border-bottom: none;
+            }
+
+            .menu-btn {
+                display: block;
+                font-size: 1.5rem;
+                padding: 0.5rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                position: relative;
+            }
+
+            .logo img {
+                width: 80px !important;
+                margin-right: 0 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-category {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .nav-categories {
+                padding: 0.8rem;
+            }
+
+            nav {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+    <!-- Google 标签 (gtag.js2) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8NMLH22Y6G');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🏠 首页</a>
+            <a href="base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+            <a href="base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+            <a href="base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+            <a href="base64/base16.html" class="nav-category">🔟 Base16</a>
+            <a href="base64/base32.html" class="nav-category">🔤 Base32</a>
+            <a href="base64/base58.html" class="nav-category">🔡 Base58</a>
+            <a href="base64/base62.html" class="nav-category">🔠 Base62</a>
+            <a href="base64/base85.html" class="nav-category">🔣 Base85</a>
+            <a href="base64/base100.html" class="nav-category">💯 Base100</a>
+            <a href="base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+            <a href="../index.html" class="nav-category" id="lang-switch">🌐 EN</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- 推荐功能 -->
+    <h2 class="category-title">Base64 工具</h2>
+    <div class="tools-grid">
+
+        <div class="tool-card">
+            <a href="base64/base64Intro.html">
+                <img src="static/images/base64Intro.png" class="fas fa-search-location tool-icon" alt="Base64" />
+                <div class="tool-title">Base64 原理</div>
+                <div class="tool-desc">Base64 原理</div>
+            </a>
+        </div>
+
+        <div class="tool-card">
+            <a href="base64/index.html">
+                <img src="static/images/base64f.png" class="fas fa-search-location tool-icon" alt="Base64 编码速览" />
+                <div class="tool-title">Base64 基础</div>
+                <div class="tool-desc">Base64 基础</div>
+            </a>
+        </div>
+
+        <div class="tool-card">
+            <a href="base64/base64List.html">
+                <img src="static/images/base64table.png" class="fas fa-search-location tool-icon" alt="Base64 编码对比表" />
+                <div class="tool-title">Base64 编码对比表</div>
+                <div class="tool-desc">在线 Base64 编码对比表</div>
+            </a>
+        </div>
+
+        <div class="tool-card">
+            <a href="base64/base64.html">
+                <img src="static/images/base64code.png" class="fas fa-search-location tool-icon" alt="Base64 编码/解码" />
+                <div class="tool-title">Base64 编码/解码</div>
+                <div class="tool-desc">在线 Base64 编码/解码</div>
+            </a>
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="base64/image2base64.html">
+
+                <img src="static/images/imagetobase64.png" class="tool-icon" alt="图片转 Base64">
+                <div class="tool-info">
+                    <div class="tool-title">图片转 Base64</div>
+                    <div class="tool-desc">在线 图片转 Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64ToFile.html">
+
+                <img src="static/images/base64toimage.png" class="tool-icon" alt="Base64 转图片">
+                <div class="tool-info">
+                    <div class="tool-title">Base64 转图片</div>
+                    <div class="tool-desc">在线 Base64 转图片</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base16.html">
+
+                <img src="static/images/base16.png" class="tool-icon" alt="Base16 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base16 编码/解码</div>
+                    <div class="tool-desc">在线 Base16 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="base64/base32.html">
+
+                <img src="static/images/base32.png" class="tool-icon" alt="Base32 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base32 编码/解码</div>
+                    <div class="tool-desc">在线 Base32 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base58.html">
+
+                <img src="static/images/base58.png" class="tool-icon" alt="Base58 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base58 编码/解码</div>
+                    <div class="tool-desc">在线 Base58 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+      
+        <div class="tool-card">
+
+            <a href="base64/base62.html">
+
+                <img src="static/images/base62.png" class="tool-icon" alt="Base62 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base62 编码/解码</div>
+                    <div class="tool-desc">在线 Base62 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base85.html">
+
+                <img src="static/images/base85.png" class="tool-icon" alt="Base85 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base85 编码/解码</div>
+                    <div class="tool-desc">在线 Base85 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base100.html">
+
+                <img src="static/images/base100.png" class="tool-icon" alt="Base100 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">Base100 编码/解码</div>
+                    <div class="tool-desc">在线 Base100 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/baseCust.html">
+
+                <img src="static/images/basecustom.png" class="tool-icon" alt="自定义 Base64 编码/解码">
+                <div class="tool-info">
+                    <div class="tool-title">自定义 Base64 编码/解码</div>
+                    <div class="tool-desc">在线 自定义 Base64 编码/解码</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64java.html">
+
+                <img src="static/images/base64java.png" class="tool-icon" alt="Java Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Java Base64</div>
+                    <div class="tool-desc">在线 Java Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64python.html">
+
+                <img src="static/images/base64Python.png" class="tool-icon" alt="Python base64 模块">
+                <div class="tool-info">
+                    <div class="tool-title">Python base64 模块</div>
+                    <div class="tool-desc">在线 Python base64 模块</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64js.html">
+
+                <img src="static/images/base64js.png" class="tool-icon" alt="JavaScript Base64">
+                <div class="tool-info">
+                    <div class="tool-title">JavaScript Base64</div>
+                    <div class="tool-desc">在线 JavaScript Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64Go.html">
+
+                <img src="static/images/base64Go.png" class="tool-icon" alt="Go Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Go Base64</div>
+                    <div class="tool-desc">在线 Go Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64Rust.html">
+
+                <img src="static/images/base64Rust.png" class="tool-icon" alt="Rust Base64">
+                    <div class="tool-info">
+                    <div class="tool-title">Rust Base64</div>
+                    <div class="tool-desc">在线 Rust Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="tool-card">
+
+            <a href="base64/base64Ruby.html">
+
+                <img src="static/images/base64Ruby.png" class="tool-icon" alt="Ruby Base64">
+                <div class="tool-info">
+                    <div class="tool-title">Ruby Base64</div>
+                    <div class="tool-desc">在线 Ruby Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="base64/base64APP.html">
+
+                <img src="static/images/APPBase64.png" class="tool-icon" alt="APP Base64">
+                <div class="tool-info">
+                    <div class="tool-title">APP Base64</div>
+                    <div class="tool-desc">Android 与 iOS 的 Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="tool-card">
+
+            <a href="base64/base64SQL.html">
+
+                <img src="static/images/Base64SQL.png" class="tool-icon" alt="SQL Base64">
+                <div class="tool-info">
+                    <div class="tool-title">SQL Base64</div>
+                    <div class="tool-desc">在线 SQL Base64</div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+            <!-- 关于我们 -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>公司：</strong>传道AI
+                </p>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>地址：</strong>深圳市龙华区民治街道
+                </p>
+                <p style="color: #666; line-height: 1.6;">
+                    我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。
+                </p>
+            </div>
+            
+            <!-- 联系我们 -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a>
+                </p>
+                <p style="color: #666; line-height: 1.6;">
+                    如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。
+                </p>
+            </div>
+            
+            <!-- 隐私政策 -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    我们重视您的隐私保护，承诺：
+                </p>
+                <ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+                    <li>不会收集您的个人敏感信息</li>
+                    <li>所有数据处理均在本地进行</li>
+                    <li>不会将您的数据用于商业用途</li>
+                    <li>严格遵守相关法律法规</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 版权信息 -->
+        <div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+            <p style="color: #999; font-size: 0.9rem; margin: 0;">
+                © 2024 传道AI. All rights reserved. | 
+                <a href="privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | 
+                <a href="about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | 
+                <a href="about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // 语言偏好处理（仅点击保存，不自动跳转）
+    (function(){
+        const langSwitch = document.getElementById('lang-switch');
+        if (langSwitch) {
+            langSwitch.addEventListener('click', function(e){
+                try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+            });
+        }
+    })();
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

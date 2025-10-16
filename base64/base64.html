@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64 Encode/Decode - Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+				font-size: 14px;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 20px !important;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 Home</a>
+			<a href="base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+			<a href="base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+			<a href="image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../cn/base64/base64.html" class="nav-category" id="lang-switch">🌐 中文</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base64 Encode/Decode</h1>
+
+	<!-- Function Description -->
+	<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #4CAF50; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+			Function Description
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔤 Text Encoding</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Convert plain text to Base64 encoding format</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔓 Text Decoding</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Convert Base64 encoding back to original text content</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔄 Bidirectional Conversion</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Support bidirectional encoding and decoding operations</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔒 Local Processing</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">All operations are performed locally to protect data security</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Usage Steps -->
+	<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+		<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-list-ol" style="margin-right: 8px;"></i>
+			Usage Steps
+		</h3>
+		<ol style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+			<li><strong>Input Text:</strong> Enter the text to be encoded or Base64 encoding in the left input box</li>
+			<li><strong>Select Operation:</strong> Click "Encode → Base64" to encode, or "Decode ← Base64" to decode</li>
+			<li><strong>View Results:</strong> Check the conversion results in the right output box</li>
+			<li><strong>Copy Results:</strong> Use the "Copy Output" button to copy results to clipboard</li>
+		</ol>
+	</div>
+
+	<!-- Case Examples -->
+	<div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #2e7d32; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
+			Case Examples
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">📝 Simple Text Encoding</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> Hello World</div>
+					<div style="color: #4CAF50;"><strong>Base64:</strong> SGVsbG8gV29ybGQ=</div>
+				</div>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🌐 URL Encoding</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> https://example.com</div>
+					<div style="color: #4CAF50;"><strong>Base64:</strong> aHR0cHM6Ly9leGFtcGxlLmNvbQ==</div>
+				</div>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔢 Number Encoding</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> 123456789</div>
+					<div style="color: #4CAF50;"><strong>Base64:</strong> MTIzNDU2Nzg5</div>
+				</div>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🎨 Special Characters</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> !@#$%^&*()</div>
+					<div style="color: #4CAF50;"><strong>Base64:</strong> IUAjJCVeJiooKQ==</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Application Scenarios -->
+	<div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+		<h3 style="color: #1976d2; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-cogs" style="margin-right: 8px;"></i>
+			Application Scenarios
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">📧</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Email Transmission</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Transmit binary data in emails</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🌐</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Web Embedding</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Embed images in HTML/CSS</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🔐</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Data Storage</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Store binary data in databases</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🔧</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">API Transmission</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Transmit binary data via JSON</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">📝 Input Text</div>
+				<textarea id="b64_input" placeholder="Enter text to encode or Base64 encoding..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="copyInBtn" style="background:#e5e7eb; color:#111;">📋 Copy Input</button>
+						<button id="clearBtn">🗑️ Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">📄 Output Result</div>
+				<textarea id="b64_output" placeholder="Conversion results will be displayed here..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="copyOutBtn" style="background:#e5e7eb; color:#111;">📋 Copy Output</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button id="encodeBtn">🔤 Encode → Base64</button>
+			<button id="decodeBtn">🔓 Decode ← Base64</button>
+			<button id="swapBtn" style="background:#2196F3; color:#fff;">🔄 Swap</button>
+		</div>
+
+		<div class="about-base64">
+			<h2>🔍 Base64 Working Principle</h2>
+			<ul>
+				<li><strong>Grouping:</strong> Every 3 bytes (24 bits) are divided into 4 groups of 6 bits each</li>
+				<li><strong>Character Mapping:</strong> Each 6-bit value maps to one character from A-Z, a-z, 0-9, +, /</li>
+				<li><strong>Padding:</strong> If input length is not a multiple of 3, pad with 0 bits and add = or ==</li>
+				<li><strong>Text Safety:</strong> Base64 is used to transmit binary data over text channels, not encryption</li>
+			</ul>
+		</div>
+
+		<!-- Detailed Description -->
+		<div style="background: #f0f8ff; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #2196f3;">
+			<h3 style="color: #1976d2; margin-bottom: 15px; display: flex; align-items: center;">
+				<i class="fas fa-book" style="margin-right: 8px;"></i>
+				Detailed Description
+			</h3>
+			<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+				<div>
+					<h4 style="color: #333; margin-bottom: 8px;">📊 Encoding Process</h4>
+					<ol style="color: #666; font-size: 14px; line-height: 1.6; padding-left: 20px; margin: 0;">
+						<li>Convert input text to byte array</li>
+						<li>Group every 3 bytes (24 bits)</li>
+						<li>Divide each group into 4 segments of 6 bits</li>
+						<li>Map each 6-bit segment to Base64 character</li>
+						<li>Pad with = when less than 3 bytes</li>
+					</ol>
+				</div>
+				<div>
+					<h4 style="color: #333; margin-bottom: 8px;">🔤 Character Table</h4>
+					<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px; font-family: monospace;">
+						<div style="color: #666; margin-bottom: 5px;"><strong>Index 0-25:</strong> A-Z</div>
+						<div style="color: #666; margin-bottom: 5px;"><strong>Index 26-51:</strong> a-z</div>
+						<div style="color: #666; margin-bottom: 5px;"><strong>Index 52-61:</strong> 0-9</div>
+						<div style="color: #666;"><strong>Index 62-63:</strong> + /</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Notes -->
+		<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ff9800;">
+			<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+				<i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+				Notes
+			</h3>
+			<ul style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+				<li><strong>Not Encryption:</strong> Base64 is an encoding method, not an encryption algorithm, data is fully visible</li>
+				<li><strong>Size Increase:</strong> Encoded data is approximately 33% larger than original data</li>
+				<li><strong>Character Limit:</strong> Only uses ASCII characters, suitable for text transmission</li>
+				<li><strong>URL Safety:</strong> Standard Base64 contains + and / characters, needs escaping in URLs</li>
+				<li><strong>Padding Characters:</strong> = characters are only used for padding, do not affect decoding results</li>
+			</ul>
+		</div>
+
+		<div id="b64_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+	</div>
+
+</div>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+            <!-- About Us -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">About Us</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>Company:</strong>Chuandao AI
+                </p>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>Address:</strong>Minzhi Street, Longhua District, Shenzhen
+                </p>
+                <p style="color: #666; line-height: 1.6;">
+                    We are committed to providing high-quality online tool services and convenient Base64 encoding/decoding and other practical functions for users.
+                </p>
+            </div>
+            
+            <!-- Contact Us -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Contact Us</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>Email:</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a>
+                </p>
+                <p style="color: #666; line-height: 1.6;">
+                    If you have any questions or suggestions, please feel free to contact us via email. We will reply to your email within 24 hours.
+                </p>
+            </div>
+            
+            <!-- Privacy Policy -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Privacy Policy</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    We value your privacy protection and promise:
+                </p>
+                <ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+                    <li>Not to collect your personal sensitive information</li>
+                    <li>All data processing is done locally</li>
+                    <li>Not to use your data for commercial purposes</li>
+                    <li>Strictly comply with relevant laws and regulations</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Copyright Information -->
+        <div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+            <p style="color: #999; font-size: 0.9rem; margin: 0;">
+                © 2024 Chuandao AI. All rights reserved. | 
+                <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a> | 
+                <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">About Us</a> | 
+                <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Contact Us</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto-close after clicking menu items
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// Language preference handling (set preference only, no auto redirect)
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<script>
+	function $(id){ return document.getElementById(id); }
+
+	function bytesToBase64(bytes) {
+		let binary = "";
+		const chunkSize = 0x8000;
+		for (let i = 0; i < bytes.length; i += chunkSize) {
+			const chunk = bytes.subarray(i, i + chunkSize);
+			binary += String.fromCharCode.apply(null, chunk);
+		}
+		return btoa(binary);
+	}
+
+	function base64ToBytes(base64) {
+		const binary = atob(base64);
+		const len = binary.length;
+		const bytes = new Uint8Array(len);
+		for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
+		return bytes;
+	}
+
+	function encodeTextToBase64(text) {
+		const encoder = new TextEncoder();
+		const bytes = encoder.encode(text);
+		return bytesToBase64(bytes);
+	}
+
+	function decodeBase64ToText(base64) {
+		const bytes = base64ToBytes(base64);
+		const decoder = new TextDecoder();
+		return decoder.decode(bytes);
+	}
+
+	function updateCounts() {
+		$("b64_in_len").textContent = String($("b64_input").value.length);
+		$("b64_out_len").textContent = String($("b64_output").value.length);
+	}
+
+	function showError(msg){ $("b64_error").textContent = msg || ""; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		$("b64_input").addEventListener('input', updateCounts);
+		updateCounts();
+
+		$("encodeBtn").addEventListener('click', function(){
+			showError("");
+			try {
+				$("b64_output").value = encodeTextToBase64($("b64_input").value);
+			} catch(e){ showError("Encode failed: " + e.message); }
+			updateCounts();
+		});
+
+		$("decodeBtn").addEventListener('click', function(){
+			showError("");
+			try {
+				// Decode from right (b64_output) to left (b64_input)
+				$("b64_input").value = decodeBase64ToText($("b64_output").value.trim());
+			} catch(e){ showError("Decode failed: " + e.message + " (invalid Base64)"); }
+			updateCounts();
+		});
+
+		$("swapBtn").addEventListener('click', function(){
+			const t = $("b64_input").value;
+			$("b64_input").value = $("b64_output").value;
+			$("b64_output").value = t;
+			updateCounts();
+		});
+
+		$("clearBtn").addEventListener('click', function(){
+			$("b64_input").value = "";
+			$("b64_output").value = "";
+			showError("");
+			updateCounts();
+		});
+
+		$("copyInBtn").addEventListener('click', async function(){
+			const text = $("b64_input").value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$("copyOutBtn").addEventListener('click', async function(){
+			const text = $("b64_output").value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+
+</body>
+
+</html>

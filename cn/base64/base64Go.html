@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Go 语言 Base64 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, Go, 编码, 解码, 传道工具">
+	<meta name="description" content="基于 Go 标准库 encoding/base64 的 Base64 编码/解码示例与说明，包含常用 API、流式与文件 I/O。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64Go.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.75rem 1rem;
+				text-decoration: none;
+				border-bottom: 1px solid #f0f0f0;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				transition: background-color 0.3s;
+			}
+
+			.nav-category:hover {
+				background-color: #f8f9fa;
+			}
+
+			.nav-category:last-child {
+				border-bottom: none;
+			}
+
+			.menu-btn {
+				display: block;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.nav-container {
+				position: relative;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 0 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-category {
+				padding: 0.6rem 0.8rem;
+				font-size: 0.85rem;
+			}
+
+			.nav-categories {
+				padding: 0.8rem;
+			}
+
+			nav {
+				padding: 0.8rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="../base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="../base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="../base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="../base64/base16.html" class="nav-category">🔟 Base16</a>
+			<a href="../base64/base32.html" class="nav-category">🔤 Base32</a>
+			<a href="../base64/base58.html" class="nav-category">🔡 Base58</a>
+			<a href="../base64/base62.html" class="nav-category">🔠 Base62</a>
+			<a href="../base64/base85.html" class="nav-category">🔣 Base85</a>
+			<a href="../base64/base100.html" class="nav-category">💯 Base100</a>
+			<a href="../base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/base64Go.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Go 语言中的 Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		本页概述 Go 语言使用标准包 <code>encoding/base64</code> 进行 Base64 的方式，
+		涵盖常见编码、基础 API、流式处理与文件 I/O 示例。
+	</p>
+
+	<h2 class="category-title">概览</h2>
+	<p style="line-height: 1.9; color: #444;">
+		Go 提供多种预定义编码：<code>StdEncoding</code>、<code>URLEncoding</code>，以及对应的无填充变体 <code>RawStdEncoding</code>、<code>RawURLEncoding</code>。
+		常用操作包括 <code>EncodeToString</code>/<code>DecodeString</code>，或通过 <code>NewEncoder</code>/<code>NewDecoder</code> 进行流式处理。
+	</p>
+
+	<h2 class="category-title">快速示例</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-code"></i></div>
+			<h3 style="margin-bottom: 8px;">基础编码/解码（字符串/字节）</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>package main
+
+import (
+	"encoding/base64"
+	"fmt"
+)
+
+func main() {
+	text := "Hello, world"
+	// Encode string (as bytes)
+	b64 := base64.StdEncoding.EncodeToString([]byte(text))
+	fmt.Println(b64) // SGVsbG8sIHdvcmxk
+
+	// Decode back to bytes
+	bytes, err := base64.StdEncoding.DecodeString(b64)
+	if err != nil { panic(err)
+	}
+	fmt.Println(string(bytes)) // Hello, world
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全与 Raw（无填充）</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>package main
+
+import (
+	"encoding/base64"
+	"fmt"
+)
+
+func main() {
+	raw := []byte("token:id/123+scope")
+	urlB64 := base64.URLEncoding.EncodeToString(raw)
+	fmt.Println(urlB64) // dG9rZW46aWQvMTIzK3Njb3Bl
+
+	// Raw variant (no '=')
+	rawB64 := base64.RawURLEncoding.EncodeToString(raw)
+	fmt.Println(rawB64) // dG9rZW46aWQvMTIzK3Njb3Bl (no padding)
+
+	dec, _ := base64.URLEncoding.DecodeString(urlB64)
+	fmt.Println(string(dec)) // token:id/123+scope
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+			<h3 style="margin-bottom: 8px;">基于 io.Reader/io.Writer 的流式处理</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>package main
+
+import (
+	"encoding/base64"
+	"io"
+	"os"
+)
+
+func main() {
+	// Encode stdin to stdout as Base64
+	enc := base64.NewEncoder(base64.StdEncoding, os.Stdout)
+	defer enc.Close()
+	io.Copy(enc, os.Stdin)
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">文件 I/O</h2>
+	<div class="tool-card" style="margin: 0 1rem;">
+		<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>package main
+
+import (
+	"encoding/base64"
+	"os"
+	"strings"
+)
+
+func main() {
+	// Binary file → Base64 text
+	data, err := os.ReadFile("input.bin")
+	if err != nil { panic(err) }
+	b64 := base64.StdEncoding.EncodeToString(data)
+	os.WriteFile("output.txt", []byte(b64), 0644)
+
+	// Base64 text → Binary file
+	b, err := os.ReadFile("output.txt")
+	if err != nil { panic(err) }
+	decoded, err := base64.StdEncoding.DecodeString(strings.TrimSpace(string(b)))
+	if err != nil { panic(err) }
+	os.WriteFile("restored.bin", decoded, 0644)
+}
+</code></pre>
+	</div>
+
+	<h2 class="category-title">注意事项</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>填充</b>：<code>StdEncoding</code>/<code>URLEncoding</code> 使用 <code>=</code> 填充；Raw 变体不使用填充。</li>
+		<li><b>错误</b>：<code>DecodeString</code> 对无效输入会返回错误，注意处理。</li>
+		<li><b>流式</b>：大数据量时使用 <code>NewEncoder</code>/<code>NewDecoder</code>，避免一次性载入内存。</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+    <meta name="keywords" content="关于我们, 联系我们, 传道AI, Base64工具">
+    <meta name="description" content="传道AI致力于提供优质的在线Base64编码解码工具服务，为用户提供便捷的实用功能。">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Navigation styles */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        /* 为不同的Base编码图标设置不同颜色 */
+        .nav-category[href*="base32"] {
+            filter: hue-rotate(120deg) saturate(1.5);
+        }
+        .nav-category[href*="base58"] {
+            filter: hue-rotate(60deg) saturate(1.5);
+        }
+        .nav-category[href*="base62"] {
+            filter: hue-rotate(0deg) saturate(1.5);
+        }
+        .nav-category[href*="base85"] {
+            filter: hue-rotate(280deg) saturate(1.5);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Page content styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-right: 1rem;
+        }
+
+        .contact-details h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: #666;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                z-index: 1000;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.75rem 1rem;
+                text-decoration: none;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                transition: background-color 0.3s;
+            }
+
+            .nav-category:hover {
+                background-color: #f8f9fa;
+            }
+
+            .nav-category:last-child {
+                border-bottom: none;
+            }
+
+            .menu-btn {
+                display: block;
+                font-size: 1.5rem;
+                padding: 0.5rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                position: relative;
+            }
+
+            .logo img {
+                width: 80px !important;
+                margin-right: 0 !important;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-category {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .nav-categories {
+                padding: 0.8rem;
+            }
+
+            nav {
+                padding: 0.8rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🏠 首页</a>
+            <a href="base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+            <a href="base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+            <a href="base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+            <a href="base64/base16.html" class="nav-category">🔟 Base16</a>
+            <a href="base64/base32.html" class="nav-category">🔤 Base32</a>
+            <a href="base64/base58.html" class="nav-category">🔡 Base58</a>
+            <a href="base64/base62.html" class="nav-category">🔠 Base62</a>
+            <a href="base64/base85.html" class="nav-category">🔣 Base85</a>
+            <a href="base64/base100.html" class="nav-category">💯 Base100</a>
+            <a href="base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+            <a href="../about.html" class="nav-category" id="lang-switch">🌐 EN</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">关于我们</h1>
+        <p class="page-subtitle">传道AI - 专业的在线工具服务提供商</p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">公司简介</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">
+            传道AI是一家专注于提供优质在线工具服务的科技公司。我们致力于为用户提供便捷、高效、安全的在线工具，
+            特别是Base64编码解码等实用功能。我们的团队由经验丰富的开发者和产品设计师组成，
+            始终以用户需求为导向，不断优化产品体验。
+        </p>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-top: 1rem;">
+            我们相信技术应该让生活更简单，因此我们专注于开发那些能够真正解决用户实际问题的工具。
+            从基础的编码解码功能到复杂的图像处理，我们都在努力提供最好的用户体验。
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">我们的使命</h2>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li>为用户提供免费、便捷的在线工具服务</li>
+            <li>确保所有数据处理的安全性和隐私性</li>
+            <li>持续改进产品功能，提升用户体验</li>
+            <li>推动技术创新，为社会创造价值</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">联系我们</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 2rem;">
+            我们非常重视用户的反馈和建议。如果您在使用我们的服务过程中遇到任何问题，
+            或者有任何改进建议，欢迎随时与我们联系。我们承诺在24小时内回复您的邮件。
+        </p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>邮箱地址</h4>
+                    <p><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>公司地址</h4>
+                    <p>深圳市龙华区民治街道</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>服务时间</h4>
+                    <p>周一至周五 9:00-18:00</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-reply"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>回复时间</h4>
+                    <p>24小时内回复邮件</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">为什么选择我们</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">🔒</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">安全可靠</h4>
+                <p style="color: #666; font-size: 0.9rem;">所有数据处理均在本地进行，保护您的隐私安全</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">⚡</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">快速高效</h4>
+                <p style="color: #666; font-size: 0.9rem;">优化的算法确保快速处理，提升工作效率</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">🆓</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">完全免费</h4>
+                <p style="color: #666; font-size: 0.9rem;">所有功能完全免费使用，无需注册登录</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">📱</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">响应式设计</h4>
+                <p style="color: #666; font-size: 0.9rem;">支持各种设备，随时随地使用</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+</div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+    // 语言偏好处理
+    (function(){
+        try {
+            const saved = localStorage.getItem('preferred_lang');
+            if (saved === 'en') {
+                // if user prefers en and we are on CN about, switch to EN
+            }
+        } catch(e) {}
+        const langSwitch = document.getElementById('lang-switch');
+        if (langSwitch) {
+            langSwitch.addEventListener('click', function(){
+                try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+            });
+        }
+    })();
+</script>
+</body>
+</html>

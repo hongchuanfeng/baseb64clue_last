@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Chuandao AI Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+    <meta name="keywords" content="privacy policy, data protection, Chuandao AI, Base64 tools">
+    <meta name="description" content="Chuandao AI privacy policy, we value your privacy protection and promise not to collect your personal sensitive information. All data processing is done locally.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Navigation styles */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        /* 为不同的Base编码图标设置不同颜色 */
+        .nav-category[href*="base32"] {
+            filter: hue-rotate(120deg) saturate(1.5);
+        }
+        .nav-category[href*="base58"] {
+            filter: hue-rotate(60deg) saturate(1.5);
+        }
+        .nav-category[href*="base62"] {
+            filter: hue-rotate(0deg) saturate(1.5);
+        }
+        .nav-category[href*="base85"] {
+            filter: hue-rotate(280deg) saturate(1.5);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Page content styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .privacy-highlight {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .privacy-highlight h4 {
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+
+        .privacy-highlight p {
+            color: #424242;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+        }
+
+        .update-date {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                z-index: 1000;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .logo img {
+                width: 80px !important;
+                margin-right: 20px !important;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🏠 Home</a>
+            <a href="base64/base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+            <a href="base64/base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+            <a href="base64/image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+            <a href="base64/base16.html" class="nav-category">🔟 Base16</a>
+            <a href="base64/base32.html" class="nav-category">🔤 Base32</a>
+            <a href="base64/base58.html" class="nav-category">🔡 Base58</a>
+            <a href="base64/base62.html" class="nav-category">🔠 Base62</a>
+            <a href="base64/base85.html" class="nav-category">🔣 Base85</a>
+            <a href="base64/base100.html" class="nav-category">💯 Base100</a>
+            <a href="base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+            <a href="cn/privacy.html" class="nav-category" id="lang-switch">🌐 中文</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="page-subtitle">We value your privacy protection and are committed to providing you with safe and reliable services</p>
+        <div class="update-date">Last updated: December 2024</div>
+    </div>
+
+    <div class="privacy-highlight">
+        <h4><i class="fas fa-shield-alt"></i> Core Commitment</h4>
+        <p>We promise not to collect, store or transmit your personal sensitive information. All data processing is done locally on your device to ensure your privacy security.</p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">1. Information Collection</h2>
+        <h4 style="color: #333; margin-bottom: 1rem;">Information We Collect</h4>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li><strong>Usage Statistics:</strong> We may collect anonymous usage statistics such as page views, feature usage frequency, etc. This information does not contain any personal identification information</li>
+            <li><strong>Technical Information:</strong> Basic technical information such as browser type, operating system version, etc., used to optimize service performance</li>
+        </ul>
+        
+        <h4 style="color: #333; margin-bottom: 1rem;">Information We Do Not Collect</h4>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li>Personal identification information (name, email, phone number, etc.)</li>
+            <li>Any data content you input or upload</li>
+            <li>IP addresses or other location information</li>
+            <li>Device unique identifiers</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">2. Data Processing Methods</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
+                <h4 style="color: #28a745; margin-bottom: 1rem;"><i class="fas fa-laptop"></i> Local Processing</h4>
+                <p style="color: #666; margin: 0;">All encoding and decoding operations are completed locally in your browser, and data is not sent to our servers</p>
+            </div>
+            
+            <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
+                <h4 style="color: #007bff; margin-bottom: 1rem;"><i class="fas fa-ban"></i> No Data Storage</h4>
+                <p style="color: #666; margin: 0;">We do not store any data content you process on our servers</p>
+            </div>
+            
+            <div style="padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #ffc107;">
+                <h4 style="color: #ffc107; margin-bottom: 1rem;"><i class="fas fa-eye-slash"></i> Privacy Protection</h4>
+                <p style="color: #666; margin: 0;">We cannot access or view any data content you process</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">3. Cookie Usage</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">
+            We may use necessary cookies to improve user experience, including:
+        </p>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li><strong>Functional Cookies:</strong> Remember your preference settings, such as language selection</li>
+            <li><strong>Analytical Cookies:</strong> Collect anonymous usage statistics to help us improve our services</li>
+            <li><strong>Security Cookies:</strong> Protect website security and prevent malicious attacks</li>
+        </ul>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-top: 1.5rem;">
+            You can manage or delete cookies through your browser settings, but this may affect the normal use of certain features.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">4. Third-Party Services</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">
+            We may use the following third-party services to improve user experience:
+        </p>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li><strong>Google Analytics:</strong> Used to collect anonymous website usage statistics</li>
+            <li><strong>CDN Services:</strong> Used to accelerate website loading speed</li>
+            <li><strong>Font Services:</strong> Used to provide better visual effects</li>
+        </ul>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-top: 1.5rem;">
+            These third-party services have their own privacy policies, and we recommend that you review the privacy policies of the relevant services.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">5. Data Security</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">
+            We take the following measures to protect your data security:
+        </p>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li>Use HTTPS encryption to transmit all data</li>
+            <li>Regularly update security patches and system maintenance</li>
+            <li>Restrict server access permissions</li>
+            <li>Monitor abnormal access behavior</li>
+            <li>Regularly backup important data</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">6. Your Rights</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">
+            According to relevant laws and regulations, you have the following rights:
+        </p>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li><strong>Right to Know:</strong> Understand how we collect and use your information</li>
+            <li><strong>Right of Access:</strong> Request us to provide a copy of your personal information</li>
+            <li><strong>Right to Rectification:</strong> Request us to correct inaccurate personal information</li>
+            <li><strong>Right to Erasure:</strong> Request us to delete your personal information</li>
+            <li><strong>Right to Restrict Processing:</strong> Request us to restrict the processing of your personal information</li>
+            <li><strong>Right to Data Portability:</strong> Request us to transfer your personal information to you or a third party</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">7. Policy Updates</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">
+            We may update this privacy policy from time to time. When we make significant changes to the policy, we will post a notice on the website.
+            We recommend that you check this page regularly to learn about the latest privacy policy. Continued use of our services indicates your agreement to the updated privacy policy.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">8. Contact Us</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 1.5rem;">
+            If you have any questions or suggestions about this privacy policy, or wish to exercise your rights, please contact us through the following methods:
+        </p>
+        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #007bff;">
+            <p style="color: #333; margin-bottom: 0.5rem;"><strong>Email:</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+            <p style="color: #333; margin: 0;"><strong>Company:</strong>Chuandao AI</p>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+</div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+    // Language preference handling
+    (function(){
+        try {
+            const saved = localStorage.getItem('preferred_lang');
+            if (saved === 'zh') {
+                // if user prefers zh and we are on EN privacy, switch to CN
+            }
+        } catch(e) {}
+        const langSwitch = document.getElementById('lang-switch');
+        if (langSwitch) {
+            langSwitch.addEventListener('click', function(){
+                try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+            });
+        }
+    })();
+</script>
+</body>
+</html>

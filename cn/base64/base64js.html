@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JavaScript Base64 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, JavaScript, 编码, 解码, 传道工具">
+	<meta name="description" content="JavaScript（浏览器与 Node.js）的 Base64 编码/解码用法，涵盖 btoa/atob、UTF-8 安全处理、URL 安全变体与文件示例。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64js.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.75rem 1rem;
+				text-decoration: none;
+				border-bottom: 1px solid #f0f0f0;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				transition: background-color 0.3s;
+			}
+
+			.nav-category:hover {
+				background-color: #f8f9fa;
+			}
+
+			.nav-category:last-child {
+				border-bottom: none;
+			}
+
+			.menu-btn {
+				display: block;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.nav-container {
+				position: relative;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 0 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-category {
+				padding: 0.6rem 0.8rem;
+				font-size: 0.85rem;
+			}
+
+			.nav-categories {
+				padding: 0.8rem;
+			}
+
+			nav {
+				padding: 0.8rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="../base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="../base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="../base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="../base64/base16.html" class="nav-category">🔟 Base16</a>
+			<a href="../base64/base32.html" class="nav-category">🔤 Base32</a>
+			<a href="../base64/base58.html" class="nav-category">🔡 Base58</a>
+			<a href="../base64/base62.html" class="nav-category">🔠 Base62</a>
+			<a href="../base64/base85.html" class="nav-category">🔣 Base85</a>
+			<a href="../base64/base100.html" class="nav-category">💯 Base100</a>
+			<a href="../base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/base64js.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>JavaScript 的 Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		本文汇总 JavaScript 在浏览器与 Node.js 环境中的 Base64 用法，
+		涵盖 <code>btoa</code>/<code>atob</code>、UTF-8 安全处理方法、URL 安全变体，
+		以及字符串、二进制与文件相关示例。
+	</p>
+
+	<h2 class="category-title">概览</h2>
+	<p style="line-height: 1.9; color: #444;">
+		Base64 使用可打印字符来表示二进制数据。
+		在浏览器中，<code>btoa()</code> 将二进制字符串编码为 Base64，<code>atob()</code> 负责解码；
+		涉及非 ASCII 文本时，请配合 <code>TextEncoder</code>/<code>TextDecoder</code> 进行 UTF-8 安全处理。
+		在 Node.js 中，请使用 <code>Buffer</code>。
+	</p>
+
+	<h2 class="category-title">API 参考</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9;">
+		<li><code>window.btoa(binaryString)</code> → Base64 字符串（浏览器）</li>
+		<li><code>window.atob(base64)</code> → 二进制字符串（浏览器）</li>
+		<li><code>TextEncoder</code> / <code>TextDecoder</code>（浏览器端 UTF-8 字节处理）</li>
+		<li><code>Buffer.from(data).toString('base64')</code> / <code>Buffer.from(b64, 'base64')</code>（Node.js）</li>
+	</ul>
+
+	<h2 class="category-title">快速示例</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-code"></i></div>
+			<h3 style="margin-bottom: 8px;">浏览器：UTF-8 安全处理</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// Encode a JS string (UTF-8) to Base64
+function encodeBase64(text) {
+	const bytes = new TextEncoder().encode(text);
+	let binary = "";
+	for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+	return btoa(binary);
+}
+
+// Decode Base64 to JS string (UTF-8)
+function decodeBase64(b64) {
+	const binary = atob(b64);
+	const bytes = new Uint8Array(binary.length);
+	for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+	return new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+}
+
+console.log(encodeBase64('Hello, 世界')); // SGVsbG8sIOS4lueVjw==
+console.log(decodeBase64('SGVsbG8sIOS4lueVjw=='));</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-server"></i></div>
+			<h3 style="margin-bottom: 8px;">Node.js：Buffer</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// String → Base64
+const b64 = Buffer.from('Hello, 世界', 'utf8').toString('base64');
+console.log(b64); // SGVsbG8sIOS4lueVjw==
+
+// Base64 → String
+const text = Buffer.from('SGVsbG8sIOS4lueVjw==', 'base64').toString('utf8');
+console.log(text); // Hello, 世界</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// Replace +/ with -_, optionally remove padding =
+function toUrlSafe(b64, stripPadding = false) {
+	let s = b64.replace(/\+/g, '-').replace(/\//g, '_');
+	return stripPadding ? s.replace(/=+$/g, '') : s;
+}
+
+function fromUrlSafe(urlSafeB64) {
+	let s = urlSafeB64.replace(/-/g, '+').replace(/_/g, '/');
+	// pad to length % 4 === 0
+	while (s.length % 4) s += '=';
+	return s;
+}
+
+const safe = toUrlSafe('YWJj+/==');
+console.log(safe);
+console.log(fromUrlSafe(safe));</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">二进制与文件（浏览器）</h2>
+	<div class="tool-card" style="margin: 0 1rem;">
+		<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>// File → Base64 (data URL or raw Base64)
+function fileToBase64(file, callback) {
+	const reader = new FileReader();
+	reader.onload = () => {
+		const dataUrl = reader.result; // e.g. "data:image/png;base64,iVBORw0KG..."
+		const base64 = String(dataUrl).split(',')[1];
+		callback({ dataUrl, base64 });
+	};
+	reader.readAsDataURL(file);
+}
+
+// Base64 → Blob (download)
+function base64ToBlob(b64, contentType = 'application/octet-stream') {
+	const binary = atob(b64);
+	const bytes = new Uint8Array(binary.length);
+	for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+	return new Blob([bytes], { type: contentType });
+}</code></pre>
+	</div>
+
+	<h2 class="category-title">注意事项</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>btoa/atob</b> 处理的是二进制字符串（Latin‑1）。处理 UTF‑8 文本时务必使用 <code>TextEncoder/TextDecoder</code>。</li>
+		<li>URL 安全场景可省略填充 <code>=</code>，解码前需补齐。</li>
+		<li>在 Node.js 中优先使用 <code>Buffer</code>，更可靠且性能更好。</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<script>
+function encodeHex() {
+	const text = document.getElementById('textInput').value;
+	const bytes = new TextEncoder().encode(text);
+	let out = '';
+	for (let i = 0; i < bytes.length; i++) {
+		out += bytes[i].toString(16).padStart(2, '0');
+	}
+	document.getElementById('hexOutput').value = out;
+}
+
+function decodeHex() {
+	const raw = document.getElementById('hexOutput').value;
+	const hex = (raw || '').replace(/[^0-9a-fA-F]/g, '');
+	if (hex.length % 2 !== 0) {
+		alert('Invalid hex: length must be even.');
+		return;
+	}
+	const bytes = new Uint8Array(hex.length / 2);
+	for (let i = 0; i < hex.length; i += 2) {
+		const byte = parseInt(hex.substr(i, 2), 16);
+		if (Number.isNaN(byte)) {
+			alert('Invalid hex content.');
+			return;
+		}
+		bytes[i / 2] = byte;
+	}
+	const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+	document.getElementById('textInput').value = text;
+}
+
+function clearAll() {
+	document.getElementById('textInput').value = '';
+	document.getElementById('hexOutput').value = '';
+}
+
+async function copyOutput() {
+	const val = document.getElementById('hexOutput').value;
+	try {
+		if (navigator.clipboard && window.isSecureContext) {
+			await navigator.clipboard.writeText(val);
+		} else {
+			const ta = document.createElement('textarea');
+			ta.value = val; document.body.appendChild(ta); ta.select();
+			document.execCommand('copy'); document.body.removeChild(ta);
+		}
+		alert('Copied');
+	} catch (e) {
+		alert('Copy failed');
+	}
+}
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

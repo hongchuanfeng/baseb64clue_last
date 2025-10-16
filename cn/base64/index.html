@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64 基础 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, 编码, 解码, 传道工具">
+	<meta name="description" content="介绍 Base64 基础知识与用法。支持 UTF-8，全部在本地浏览器执行。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/index.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Typography spacing inside content */
+		.container p {
+			margin: 1rem 0;
+			line-height: 1.9;
+		}
+
+		.container li {
+			margin: 0.6rem 0;
+			line-height: 1.9;
+		}
+
+		.container h2 {
+			margin: 1.4rem 0 0.9rem;
+		}
+
+		.container table th,
+		.container table td {
+			padding: 10px 6px;
+		}
+
+		/* Section 5 table coloring */
+		.lang-b64-table table thead th {
+			background: #f3f6f9;
+		}
+		.lang-b64-table table tbody tr:nth-child(odd) {
+			background: #fafbfc;
+		}
+		.lang-b64-table table td:nth-child(1) { /* 语言 */
+			color: #555;
+			white-space: nowrap;
+			font-weight: 600;
+		}
+		.lang-b64-table table td:nth-child(2) { /* 编码 */
+			color: #2e7d32; /* green */
+		}
+		.lang-b64-table table td:nth-child(3) { /* 解码 */
+			color: #1565c0; /* blue */
+		}
+		.lang-b64-table code {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+				font-size: 14px;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 20px !important;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+		<a href="base64Intro.html" class="nav-category">📚 Base64 原理</a>
+		<a href="base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+		<a href="image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/index.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base64 基础</h1>
+
+	<h2>1. 什么是 Base64 编码</h2>
+	<p>
+		Base64 使用 64 个可打印字符（A-Z、a-z、0-9、+、/）来表示二进制数据。
+		由于 2^6 = 64，Base64 以 6 位为一组进行编码。
+	</p>
+
+	<h2>2. 为什么使用 Base64</h2>
+	<p>
+		在许多场景需要以文本方式传输或存储二进制数据，例如 URL、JSON、表单、邮件等。
+		Base64 只包含可打印字符，并避免字符串终止符 \0，防止二进制被当作字符串时被截断。
+	</p>
+
+	<h2>3. 编码规则（要点）</h2>
+	<ul>
+		<li>每 3 个字节（24 位）拆成 4 组，每组 6 位，对应 1 个 Base64 字符。</li>
+		<li>输入长度非 3 的倍数时，末尾以 0 位补齐并使用 <code>=</code> 作为填充：</li>
+		<li>余 1 字节 → 以 <code>==</code> 结尾；余 2 字节 → 以 <code>=</code> 结尾。</li>
+	</ul>
+
+	<div class="about-base64" style="overflow-x:auto">
+		<h2>Base64 索引表</h2>
+		<table style="width:100%; border-collapse: collapse; font-size:14px">
+			<thead>
+				<tr>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">值</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">字符</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Value</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:6px 4px">Char</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>0</td><td>A</td><td>16</td><td>Q</td><td>32</td><td>g</td><td>48</td><td>w</td></tr>
+				<tr><td>1</td><td>B</td><td>17</td><td>R</td><td>33</td><td>h</td><td>49</td><td>x</td></tr>
+				<tr><td>2</td><td>C</td><td>18</td><td>S</td><td>34</td><td>i</td><td>50</td><td>y</td></tr>
+				<tr><td>3</td><td>D</td><td>19</td><td>T</td><td>35</td><td>j</td><td>51</td><td>z</td></tr>
+				<tr><td>4</td><td>E</td><td>20</td><td>U</td><td>36</td><td>k</td><td>52</td><td>0</td></tr>
+				<tr><td>5</td><td>F</td><td>21</td><td>V</td><td>37</td><td>l</td><td>53</td><td>1</td></tr>
+				<tr><td>6</td><td>G</td><td>22</td><td>W</td><td>38</td><td>m</td><td>54</td><td>2</td></tr>
+				<tr><td>7</td><td>H</td><td>23</td><td>X</td><td>39</td><td>n</td><td>55</td><td>3</td></tr>
+				<tr><td>8</td><td>I</td><td>24</td><td>Y</td><td>40</td><td>o</td><td>56</td><td>4</td></tr>
+				<tr><td>9</td><td>J</td><td>25</td><td>Z</td><td>41</td><td>p</td><td>57</td><td>5</td></tr>
+				<tr><td>10</td><td>K</td><td>26</td><td>a</td><td>42</td><td>q</td><td>58</td><td>6</td></tr>
+				<tr><td>11</td><td>L</td><td>27</td><td>b</td><td>43</td><td>r</td><td>59</td><td>7</td></tr>
+				<tr><td>12</td><td>M</td><td>28</td><td>c</td><td>44</td><td>s</td><td>60</td><td>8</td></tr>
+				<tr><td>13</td><td>N</td><td>29</td><td>d</td><td>45</td><td>t</td><td>61</td><td>9</td></tr>
+				<tr><td>14</td><td>O</td><td>30</td><td>e</td><td>46</td><td>u</td><td>62</td><td>+</td></tr>
+				<tr><td>15</td><td>P</td><td>31</td><td>f</td><td>47</td><td>v</td><td>63</td><td>/</td></tr>
+			</tbody>
+		</table>
+		<p style="margin-top:10px">
+			若字节数不是 3 的倍数，编码前在末尾补 0 位：
+			余 1 字节 → 追加 <code>==</code>；余 2 字节 → 追加 <code>=</code>。
+		</p>
+	</div>
+
+	<h2>4. 示例</h2>
+	<div style="line-height:1.8">
+		<p>
+			<strong>示例 1：</strong> 字节 <code>0 1 2</code><br/>
+			二进制：0011 0000 · 0011 0001 · 0011 0010 → 每 6 位分组 → 12, 3, 4, 50 → 字符 <code>M D E y</code><br/>
+			结果：<code>MDEy</code>
+		</p>
+		<p>
+			<strong>示例 2（带填充）：</strong> 字节 <code>0 1 2 3</code><br/>
+			分组：12, 3, 4, 50, 12, 48（末尾补 0）→ 字符 <code>M D E y M w</code><br/>
+			结果：<code>MDEyMw==</code>
+		</p>
+	</div>
+
+	<h2>5. Base64 encode/decode across languages</h2>
+	<div class="lang-b64-table" style="overflow-x:auto">
+		<table style="width:100%; border-collapse: collapse; font-size:14px">
+			<thead>
+				<tr>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:8px 6px">语言</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:8px 6px">Base64 编码</th>
+					<th style="text-align:left; border-bottom:1px solid #eee; padding:8px 6px">Base64 解码</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Java</td>
+					<td><code>base64 = new BASE64Encoder().encode(str.getBytes());</code></td>
+					<td><code>str = new String(new BASE64Decoder().decodeBuffer(base64));</code></td>
+				</tr>
+				<tr>
+					<td>JavaScript</td>
+					<td>
+						<code>base64 = btoa(str);</code> 或<br/>
+						<code>var s = CryptoJS.enc.Utf8.parse(str);</code><br/>
+						<code>base64 = CryptoJS.enc.Base64.stringify(s);</code>
+					</td>
+					<td>
+						<code>str = atob(base64);</code> 或<br/>
+						<code>var s = CryptoJS.enc.Base64.parse(base64);</code><br/>
+						<code>str = s.toString(CryptoJS.enc.Utf8);</code>
+					</td>
+				</tr>
+				<tr>
+					<td>PHP</td>
+					<td><code>$base64 = base64_encode($str);</code></td>
+					<td><code>$str = base64_decode($base64);</code></td>
+				</tr>
+				<tr>
+					<td>C#/.NET</td>
+					<td>
+						<code>byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str);</code><br/>
+						<code>base64 = System.Convert.ToBase64String(bytes);</code>
+					</td>
+					<td>
+						<code>byte[] bytes = System.Convert.FromBase64String(base64);</code><br/>
+						<code>str = System.Text.Encoding.UTF8.GetString(bytes);</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Python</td>
+					<td><code>import base64\nbase64 = base64.b64encode(str)</code></td>
+					<td><code>import base64\nstr = base64.b64decode(base64)</code></td>
+				</tr>
+				<tr>
+					<td>Perl</td>
+					<td><code>use MIME::Base64;\n$base64 = encode_base64($str);</code></td>
+					<td><code>use MIME::Base64;\n$str = decode_base64($base64);</code></td>
+				</tr>
+				<tr>
+					<td>Golang</td>
+					<td><code>import b64 "encoding/base64"</code></td>
+					<td><code>import b64 "encoding/base64"\nstr := b64.StdEncoding.DecodeString(base64)</code></td>
+				</tr>
+				<tr>
+					<td>Ruby</td>
+					<td><code>require "base64"\nbase64 = Base64.encode64(str)</code></td>
+					<td><code>require "base64"\nstr = Base64.decode64(base64)</code></td>
+				</tr>
+				<tr>
+					<td>MySQL/MariaDB</td>
+					<td><code>SELECT TO_BASE64(str);</code></td>
+					<td><code>SELECT FROM_BASE64(base64);</code></td>
+				</tr>
+				<tr>
+					<td>PostgreSQL</td>
+					<td><code>SELECT encode(str, 'base64');</code></td>
+					<td><code>SELECT decode(base64, 'base64');</code></td>
+				</tr>
+				<tr>
+					<td>Linux Shell</td>
+					<td><code>$ echo test | base64</code></td>
+					<td><code>$ echo dGVzdA== | base64 -d</code></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的 Base64 编码/解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

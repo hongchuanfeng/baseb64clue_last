@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base16 Encode/Decode - Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+	<meta name="keywords" content="Base64, encode, decode, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base64 strings. Works with UTF-8 text and runs locally in your browser.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base16.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+				font-size: 14px;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 20px !important;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 Home</a>
+			<a href="base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+			<a href="base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+			<a href="image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../cn/base64/base16.html" class="nav-category" id="lang-switch">🌐 中文</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base16 (Hex) Converter</h1>
+
+	<!-- Function Description -->
+	<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #4CAF50; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+			Function Description
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔢 Hexadecimal Encoding</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Convert text to hexadecimal (Base16) format</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔓 Hexadecimal Decoding</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Convert hexadecimal string back to original text</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔤 Character Set</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Uses 0-9 and A-F characters (16 characters total)</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔒 Local Processing</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">All operations are performed locally to protect data security</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Usage Steps -->
+	<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+		<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-list-ol" style="margin-right: 8px;"></i>
+			Usage Steps
+		</h3>
+		<ol style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+			<li><strong>Input Text:</strong> Enter the text to be encoded in the input box</li>
+			<li><strong>Encode:</strong> Click "Text → Hex" button to perform hexadecimal encoding</li>
+			<li><strong>Decode:</strong> Enter hexadecimal in the output box, click "Hex → Text" to decode</li>
+			<li><strong>Copy Result:</strong> Use "Copy Output" button to copy the result</li>
+		</ol>
+	</div>
+
+	<!-- Case Examples -->
+	<div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #2e7d32; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
+			Case Examples
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">📝 Simple Text</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> Hello</div>
+					<div style="color: #4CAF50;"><strong>Hex:</strong> 48656c6c6f</div>
+				</div>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔢 Number Encoding</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> 123</div>
+					<div style="color: #4CAF50;"><strong>Hex:</strong> 313233</div>
+				</div>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🌐 URL Encoding</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> https://</div>
+					<div style="color: #4CAF50;"><strong>Hex:</strong> 68747470733a2f2f</div>
+				</div>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🎨 Special Characters</h4>
+				<div style="background: white; padding: 10px; border-radius: 4px; font-size: 12px;">
+					<div style="color: #666; margin-bottom: 5px;"><strong>Original:</strong> @#$</div>
+					<div style="color: #4CAF50;"><strong>Hex:</strong> 402324</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Application Scenarios -->
+	<div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+		<h3 style="color: #1976d2; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-cogs" style="margin-right: 8px;"></i>
+			Application Scenarios
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🔍</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Debug Analysis</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">View hexadecimal representation of text</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">💾</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Data Storage</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Store data in hexadecimal format</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🔧</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Development Tools</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Program development and debugging tools</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">📊</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Data Analysis</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Analyze binary data content</p>
+			</div>
+		</div>
+	</div>
+
+	<textarea id="textInput" placeholder="Enter text to encode (UTF-8)"></textarea>
+
+	<div class="btn-group">
+		<button id="encodeBtn" onclick="encodeHex()">🔢 Text → Hex</button>
+		<button id="decodeBtn" onclick="decodeHex()">🔓 Hex → Text</button>
+		<button id="clearBtn" onclick="clearAll()">🗑️ Clear</button>
+		<button id="copyBtn" onclick="copyOutput()">📋 Copy Output</button>
+	</div>
+
+	<textarea id="hexOutput" placeholder="Enter hexadecimal string to decode (spaces and newlines allowed)"></textarea>
+
+	<div class="about-base64">
+		<h2>🔍 Base16 (Hexadecimal) Working Principle</h2>
+		<ul>
+			<li><strong>Character Set:</strong> Base16 uses 16 symbols 0-9 and A-F to represent bytes</li>
+			<li><strong>Grouping:</strong> Each byte (8 bits) is split into two 4-bit nibbles, each nibble maps to one hexadecimal digit</li>
+			<li><strong>Encoding Example:</strong> Byte 0x4F → Binary 0100 1111 → Hexadecimal "4F"</li>
+			<li><strong>Decoding:</strong> Decoding groups every two hexadecimal digits into one byte, spaces and newlines are ignored</li>
+			<li><strong>Security Note:</strong> Hexadecimal is a representation method, not encryption, it does not provide confidentiality</li>
+		</ul>
+	</div>
+
+	<!-- Notes -->
+	<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ff9800;">
+		<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+			Notes
+		</h3>
+		<ul style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+			<li><strong>Case Sensitivity:</strong> Hexadecimal letters are case-insensitive, A-F and a-f are equivalent</li>
+			<li><strong>Length Requirement:</strong> Hexadecimal string length must be even, odd length will cause error</li>
+			<li><strong>Character Limit:</strong> Can only contain 0-9, A-F (or a-f) characters, other characters will be ignored</li>
+			<li><strong>Whitespace Handling:</strong> Spaces, newlines and other whitespace characters in input will be automatically ignored</li>
+			<li><strong>Encoding Efficiency:</strong> Hexadecimal encoding will double the data size</li>
+		</ul>
+	</div>
+
+</div>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<!-- About Us -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">About Us</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Company:</strong> Chuandao AI
+				</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Address:</strong> Minzhi Street, Longhua District, Shenzhen
+				</p>
+				<p style="color: #666; line-height: 1.6;">
+					We are committed to providing high-quality online tool services, offering convenient Base64 encoding and decoding and other practical functions for users.
+				</p>
+			</div>
+			
+			<!-- Contact Us -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Contact Us</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Email:</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;"> hcf@foxmail.com</a>
+				</p>
+				<p style="color: #666; line-height: 1.6;">
+					If you have any questions or suggestions, please feel free to contact us via email. We will reply to your email within 24 hours.
+				</p>
+			</div>
+			
+			<!-- Privacy Policy -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Privacy Policy</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					We value your privacy protection and promise:
+				</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>We will not collect your personal sensitive information</li>
+					<li>All data processing is performed locally</li>
+					<li>We will not use your data for commercial purposes</li>
+					<li>We strictly comply with relevant laws and regulations</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!-- Copyright -->
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">
+				© 2024 Chuandao AI. All rights reserved. | 
+				<a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a> | 
+				<a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">About Us</a> | 
+				<a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Contact Us</a>
+			</p>
+		</div>
+	</div>
+</footer>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// Language preference handling (set preference only, no auto redirect)
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<script>
+function encodeHex() {
+	const text = document.getElementById('textInput').value;
+	const bytes = new TextEncoder().encode(text);
+	let out = '';
+	for (let i = 0; i < bytes.length; i++) {
+		out += bytes[i].toString(16).padStart(2, '0');
+	}
+	document.getElementById('hexOutput').value = out;
+}
+
+function decodeHex() {
+	const raw = document.getElementById('hexOutput').value;
+	const hex = (raw || '').replace(/[^0-9a-fA-F]/g, '');
+	if (hex.length % 2 !== 0) {
+		alert('Invalid hex: length must be even.');
+		return;
+	}
+	const bytes = new Uint8Array(hex.length / 2);
+	for (let i = 0; i < hex.length; i += 2) {
+		const byte = parseInt(hex.substr(i, 2), 16);
+		if (Number.isNaN(byte)) {
+			alert('Invalid hex content.');
+			return;
+		}
+		bytes[i / 2] = byte;
+	}
+	const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+	document.getElementById('textInput').value = text;
+}
+
+function clearAll() {
+	document.getElementById('textInput').value = '';
+	document.getElementById('hexOutput').value = '';
+}
+
+async function copyOutput() {
+	const val = document.getElementById('hexOutput').value;
+	try {
+		if (navigator.clipboard && window.isSecureContext) {
+			await navigator.clipboard.writeText(val);
+		} else {
+			const ta = document.createElement('textarea');
+			ta.value = val; document.body.appendChild(ta); ta.select();
+			document.execCommand('copy'); document.body.removeChild(ta);
+		}
+		alert('Copied');
+	} catch (e) {
+		alert('Copy failed');
+	}
+}
+</script>
+
+
+</body>
+
+</html>

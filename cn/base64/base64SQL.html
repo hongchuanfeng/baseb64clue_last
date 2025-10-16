@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SQL Base64 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, SQL, MySQL, SQL Server, PostgreSQL, Oracle, 数据库, 传道工具">
+	<meta name="description" content="各类数据库中的 Base64 编码/解码：MySQL、SQL Server、PostgreSQL、Oracle 等的函数与示例。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64SQL.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.75rem 1rem;
+				text-decoration: none;
+				border-bottom: 1px solid #f0f0f0;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				transition: background-color 0.3s;
+			}
+
+			.nav-category:hover {
+				background-color: #f8f9fa;
+			}
+
+			.nav-category:last-child {
+				border-bottom: none;
+			}
+
+			.menu-btn {
+				display: block;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.nav-container {
+				position: relative;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 0 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-category {
+				padding: 0.6rem 0.8rem;
+				font-size: 0.85rem;
+			}
+
+			.nav-categories {
+				padding: 0.8rem;
+			}
+
+			nav {
+				padding: 0.8rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="../base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="../base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="../base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="../base64/base16.html" class="nav-category">🔟 Base16</a>
+			<a href="../base64/base32.html" class="nav-category">🔤 Base32</a>
+			<a href="../base64/base58.html" class="nav-category">🔡 Base58</a>
+			<a href="../base64/base62.html" class="nav-category">🔠 Base62</a>
+			<a href="../base64/base85.html" class="nav-category">🔣 Base85</a>
+			<a href="../base64/base100.html" class="nav-category">💯 Base100</a>
+			<a href="../base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/base64SQL.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>SQL 中的 Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		本文介绍各类 SQL 数据库中的 Base64 编码/解码函数，包括 MySQL、SQL Server、PostgreSQL、Oracle 等。
+		你可以直接在 SQL 语句中完成数据的编码与解码。
+	</p>
+
+	<h2 class="category-title">概览</h2>
+	<p style="line-height: 1.9; color: #444;">
+		大多数现代 SQL 数据库都内置了 Base64 编码/解码函数。本文给出不同数据库的常见语法与函数，
+		并提供图像存储、二进制数据处理与数据传输等常见场景的示例。
+	</p>
+
+	<h2 class="category-title">MySQL 的 Base64 函数</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">基础编码/解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Encode string to Base64
+SELECT TO_BASE64('Hello, World!') AS encoded;
+-- Result: SGVsbG8sIFdvcmxkIQ==
+
+-- Decode Base64 to string
+SELECT FROM_BASE64('SGVsbG8sIFdvcmxkIQ==') AS decoded;
+-- Result: Hello, World!
+
+-- Encode binary data
+SELECT TO_BASE64(BINARY 'Hello') AS binary_encoded;
+-- Result: SGVsbG8=
+
+-- Decode to binary
+SELECT FROM_BASE64('SGVsbG8=') AS binary_decoded;
+-- Result: Hello
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">处理 BLOB 数据</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Store image as Base64
+INSERT INTO images (name, data_base64) 
+VALUES ('logo.png', TO_BASE64(LOAD_FILE('/path/to/logo.png')));
+
+-- Retrieve and decode image
+SELECT name, FROM_BASE64(data_base64) AS image_data 
+FROM images WHERE name = 'logo.png';
+
+-- Update existing BLOB to Base64
+UPDATE images 
+SET data_base64 = TO_BASE64(image_blob) 
+WHERE id = 1;
+
+-- Convert Base64 back to BLOB
+UPDATE images 
+SET image_blob = FROM_BASE64(data_base64) 
+WHERE id = 1;
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- URL-safe Base64 encoding (manual implementation)
+SELECT REPLACE(REPLACE(REPLACE(TO_BASE64('Hello World'), '+', '-'), '/', '_'), '=', '') 
+AS url_safe_base64;
+-- Result: SGVsbG8gV29ybGQ
+
+-- URL-safe Base64 decoding (manual implementation)
+SELECT FROM_BASE64(
+    REPLACE(REPLACE(REPLACE('SGVsbG8gV29ybGQ', '-', '+'), '_', '/'), '', '=' || '')
+) AS decoded;
+-- Result: Hello World
+
+-- Using in WHERE clause
+SELECT * FROM users 
+WHERE token = TO_BASE64(CONCAT(user_id, ':', timestamp));
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">SQL Server 的 Base64 函数</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">基础编码/解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Encode string to Base64 (SQL Server 2016+)
+SELECT CAST('Hello, World!' AS VARBINARY(MAX)) FOR XML PATH(''), BINARY BASE64;
+-- Alternative method
+SELECT CONVERT(VARCHAR(MAX), CAST('Hello, World!' AS VARBINARY(MAX)), 1);
+
+-- Decode Base64 to string
+SELECT CAST(CAST('SGVsbG8sIFdvcmxkIQ==' AS XML).value('.', 'VARBINARY(MAX)') AS VARCHAR(MAX));
+
+-- Using FOR XML PATH for encoding
+SELECT (SELECT 'Hello, World!' FOR XML PATH(''), BINARY BASE64) AS encoded;
+
+-- Custom Base64 functions (SQL Server 2008+)
+CREATE FUNCTION dbo.Base64Encode(@input VARBINARY(MAX))
+RETURNS VARCHAR(MAX)
+AS
+BEGIN
+    RETURN CAST(@input AS VARCHAR(MAX)) FOR XML PATH(''), BINARY BASE64
+END;
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">处理 VARBINARY 数据</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Store image as Base64
+INSERT INTO images (name, data_base64) 
+SELECT 'logo.png', 
+       CAST(image_data AS VARCHAR(MAX)) FOR XML PATH(''), BINARY BASE64
+FROM (SELECT * FROM OPENROWSET(BULK 'C:\logo.png', SINGLE_BLOB) AS x) AS img;
+
+-- Retrieve and decode image
+SELECT name, 
+       CAST(CAST(data_base64 AS XML).value('.', 'VARBINARY(MAX)') AS VARBINARY(MAX)) AS image_data
+FROM images WHERE name = 'logo.png';
+
+-- Update existing VARBINARY to Base64
+UPDATE images 
+SET data_base64 = CAST(image_data AS VARCHAR(MAX)) FOR XML PATH(''), BINARY BASE64
+WHERE id = 1;
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
+			<h3 style="margin-bottom: 8px;">高级 Base64 操作</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Create Base64 encoding function
+CREATE FUNCTION dbo.Base64Encode(@input VARBINARY(MAX))
+RETURNS VARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @result VARCHAR(MAX)
+    SET @result = CAST(@input AS VARCHAR(MAX)) FOR XML PATH(''), BINARY BASE64
+    RETURN @result
+END;
+
+-- Create Base64 decoding function
+CREATE FUNCTION dbo.Base64Decode(@input VARCHAR(MAX))
+RETURNS VARBINARY(MAX)
+AS
+BEGIN
+    DECLARE @result VARBINARY(MAX)
+    SET @result = CAST(CAST(@input AS XML).value('.', 'VARBINARY(MAX)') AS VARBINARY(MAX))
+    RETURN @result
+END;
+
+-- Usage examples
+SELECT dbo.Base64Encode(CAST('Hello' AS VARBINARY(MAX))) AS encoded;
+SELECT CAST(dbo.Base64Decode('SGVsbG8=') AS VARCHAR(MAX)) AS decoded;
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">PostgreSQL 的 Base64 函数</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">基础编码/解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Encode string to Base64
+SELECT encode('Hello, World!'::bytea, 'base64') AS encoded;
+-- Result: SGVsbG8sIFdvcmxkIQ==
+
+-- Decode Base64 to string
+SELECT convert_from(decode('SGVsbG8sIFdvcmxkIQ==', 'base64'), 'UTF8') AS decoded;
+-- Result: Hello, World!
+
+-- Encode binary data
+SELECT encode('Hello'::bytea, 'base64') AS binary_encoded;
+-- Result: SGVsbG8=
+
+-- Decode to binary
+SELECT decode('SGVsbG8=', 'base64') AS binary_decoded;
+-- Result: \x48656c6c6f
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">处理 BYTEA 数据</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Store image as Base64
+INSERT INTO images (name, data_base64) 
+VALUES ('logo.png', encode(lo_get(lo_import('/path/to/logo.png')), 'base64'));
+
+-- Retrieve and decode image
+SELECT name, decode(data_base64, 'base64') AS image_data 
+FROM images WHERE name = 'logo.png';
+
+-- Update existing BYTEA to Base64
+UPDATE images 
+SET data_base64 = encode(image_data, 'base64') 
+WHERE id = 1;
+
+-- Convert Base64 back to BYTEA
+UPDATE images 
+SET image_data = decode(data_base64, 'base64') 
+WHERE id = 1;
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- URL-safe Base64 encoding
+SELECT replace(replace(replace(encode('Hello World'::bytea, 'base64'), '+', '-'), '/', '_'), '=', '') 
+AS url_safe_base64;
+-- Result: SGVsbG8gV29ybGQ
+
+-- URL-safe Base64 decoding
+SELECT convert_from(decode(
+    replace(replace(replace('SGVsbG8gV29ybGQ', '-', '+'), '_', '/'), '', '=' || ''),
+    'base64'
+), 'UTF8') AS decoded;
+-- Result: Hello World
+
+-- Using in WHERE clause
+SELECT * FROM users 
+WHERE token = encode(concat(user_id, ':', timestamp)::bytea, 'base64');
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">Oracle 的 Base64 函数</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">基础编码/解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Encode string to Base64
+SELECT UTL_ENCODE.BASE64_ENCODE(UTL_RAW.CAST_TO_RAW('Hello, World!')) AS encoded FROM DUAL;
+-- Result: SGVsbG8sIFdvcmxkIQ==
+
+-- Decode Base64 to string
+SELECT UTL_RAW.CAST_TO_VARCHAR2(UTL_ENCODE.BASE64_DECODE('SGVsbG8sIFdvcmxkIQ==')) AS decoded FROM DUAL;
+-- Result: Hello, World!
+
+-- Encode binary data
+SELECT UTL_ENCODE.BASE64_ENCODE(UTL_RAW.CAST_TO_RAW('Hello')) AS binary_encoded FROM DUAL;
+-- Result: SGVsbG8=
+
+-- Decode to binary
+SELECT UTL_RAW.CAST_TO_VARCHAR2(UTL_ENCODE.BASE64_DECODE('SGVsbG8=')) AS binary_decoded FROM DUAL;
+-- Result: Hello
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">处理 BLOB 数据</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Store image as Base64
+INSERT INTO images (name, data_base64) 
+VALUES ('logo.png', UTL_ENCODE.BASE64_ENCODE(image_blob));
+
+-- Retrieve and decode image
+SELECT name, UTL_ENCODE.BASE64_DECODE(data_base64) AS image_data 
+FROM images WHERE name = 'logo.png';
+
+-- Update existing BLOB to Base64
+UPDATE images 
+SET data_base64 = UTL_ENCODE.BASE64_ENCODE(image_blob) 
+WHERE id = 1;
+
+-- Convert Base64 back to BLOB
+UPDATE images 
+SET image_blob = UTL_ENCODE.BASE64_DECODE(data_base64) 
+WHERE id = 1;
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
+			<h3 style="margin-bottom: 8px;">进阶操作</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- Create custom Base64 functions
+CREATE OR REPLACE FUNCTION base64_encode(p_input VARCHAR2)
+RETURN VARCHAR2
+IS
+BEGIN
+    RETURN UTL_ENCODE.BASE64_ENCODE(UTL_RAW.CAST_TO_RAW(p_input));
+END;
+
+CREATE OR REPLACE FUNCTION base64_decode(p_input VARCHAR2)
+RETURN VARCHAR2
+IS
+BEGIN
+    RETURN UTL_RAW.CAST_TO_VARCHAR2(UTL_ENCODE.BASE64_DECODE(p_input));
+END;
+
+-- Usage examples
+SELECT base64_encode('Hello World') AS encoded FROM DUAL;
+SELECT base64_decode('SGVsbG8gV29ybGQ=') AS decoded FROM DUAL;
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">其他数据库系统</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">SQLite 的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- SQLite doesn't have built-in Base64 functions
+-- You need to use extensions or custom implementations
+
+-- Using base64 extension (if available)
+SELECT base64('Hello, World!') AS encoded;
+SELECT base64_decode('SGVsbG8sIFdvcmxkIQ==') AS decoded;
+
+-- Manual Base64 implementation (simplified)
+-- This is a basic example - full implementation would be more complex
+CREATE TABLE base64_chars (
+    val INTEGER PRIMARY KEY,
+    char TEXT
+);
+
+-- Insert Base64 alphabet
+INSERT INTO base64_chars VALUES 
+(0,'A'),(1,'B'),(2,'C'),(3,'D'),(4,'E'),(5,'F'),(6,'G'),(7,'H'),
+(8,'I'),(9,'J'),(10,'K'),(11,'L'),(12,'M'),(13,'N'),(14,'O'),(15,'P'),
+(16,'Q'),(17,'R'),(18,'S'),(19,'T'),(20,'U'),(21,'V'),(22,'W'),(23,'X'),
+(24,'Y'),(25,'Z'),(26,'a'),(27,'b'),(28,'c'),(29,'d'),(30,'e'),(31,'f'),
+(32,'g'),(33,'h'),(34,'i'),(35,'j'),(36,'k'),(37,'l'),(38,'m'),(39,'n'),
+(40,'o'),(41,'p'),(42,'q'),(43,'r'),(44,'s'),(45,'t'),(46,'u'),(47,'v'),
+(48,'w'),(49,'x'),(50,'y'),(51,'z'),(52,'0'),(53,'1'),(54,'2'),(55,'3'),
+(56,'4'),(57,'5'),(58,'6'),(59,'7'),(60,'8'),(61,'9'),(62,'+'),(63,'/');
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">MariaDB 的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- MariaDB has the same Base64 functions as MySQL
+-- TO_BASE64() and FROM_BASE64() functions
+
+-- Encode string to Base64
+SELECT TO_BASE64('Hello, World!') AS encoded;
+-- Result: SGVsbG8sIFdvcmxkIQ==
+
+-- Decode Base64 to string
+SELECT FROM_BASE64('SGVsbG8sIFdvcmxkIQ==') AS decoded;
+-- Result: Hello, World!
+
+-- Working with BLOB data
+INSERT INTO images (name, data_base64) 
+VALUES ('logo.png', TO_BASE64(LOAD_FILE('/path/to/logo.png')));
+
+-- Retrieve and decode
+SELECT name, FROM_BASE64(data_base64) AS image_data 
+FROM images WHERE name = 'logo.png';
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-database"></i></div>
+			<h3 style="margin-bottom: 8px;">DB2 的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>-- DB2 Base64 functions
+-- Encode string to Base64
+SELECT BASE64('Hello, World!') AS encoded FROM SYSIBM.SYSDUMMY1;
+-- Result: SGVsbG8sIFdvcmxkIQ==
+
+-- Decode Base64 to string
+SELECT BASE64_DECODE('SGVsbG8sIFdvcmxkIQ==') AS decoded FROM SYSIBM.SYSDUMMY1;
+-- Result: Hello, World!
+
+-- Working with BLOB data
+INSERT INTO images (name, data_base64) 
+VALUES ('logo.png', BASE64(image_blob));
+
+-- Retrieve and decode
+SELECT name, BASE64_DECODE(data_base64) AS image_data 
+FROM images WHERE name = 'logo.png';
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">最佳实践</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>性能</b>：Base64 会使数据增大约 33%，注意对存储与网络的影响。</li>
+		<li><b>索引</b>：Base64 文本不适合索引/检索，建议另存原始数据。</li>
+		<li><b>安全</b>：Base64 不是加密，敏感数据请使用加密方案。</li>
+		<li><b>数据类型</b>：选择合适的数据类型（VARCHAR、TEXT、CLOB 等）存储 Base64 字符串。</li>
+		<li><b>错误处理</b>：解码前务必校验 Base64 输入，避免错误。</li>
+		<li><b>URL 安全</b>：在 URL 或 JSON 中嵌入时使用 URL 安全变体。</li>
+		<li><b>大数据</b>：体量较大时建议外部存储文件，仅在库中保存引用。</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base85 Encode/Decode - Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+	<meta name="keywords" content="Base85, encode, decode, Ascii85, Chuandao Tools">
+	<meta name="description" content="Encode or decode Base85 strings. Works with UTF-8 text and runs locally in your browser.">	
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base85.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+				font-size: 14px;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 20px !important;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 Home</a>
+			<a href="base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+			<a href="base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+			<a href="image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../cn/base64/base85.html" class="nav-category" id="lang-switch">🌐 中文</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>Base85 Encode/Decode</h1>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Input</div>
+				<textarea id="b85_input" placeholder="Enter text or Base85..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b85_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b85_copyInBtn" style="background:#e5e7eb; color:#111;">Copy Input</button>
+						<button id="b85_clearBtn">Clear</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">Output</div>
+				<textarea id="b85_output" placeholder="Result will appear here..."></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b85_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b85_copyOutBtn" style="background:#e5e7eb; color:#111;">Copy Output</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button id="b85_encodeBtn">Encode → Base85</button>
+			<button id="b85_decodeBtn">Decode ← Base85</button>
+			<button id="b85_swapBtn" style="background:#2196F3; color:#fff;">Swap</button>
+		</div>
+
+		<div id="b85_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+
+		<div class="about-base64" style="margin-top:12px;">
+			<h2>How Base85 works</h2>
+			<ul>
+				<li><strong>Alphabet:</strong> 85 symbols using ASCII characters 33-117 (! to u), excluding some problematic characters.</li>
+				<li><strong>Encoding:</strong> Groups of 4 bytes are converted to 5 Base85 characters using base-85 arithmetic.</li>
+				<li><strong>Decoding:</strong> Groups of 5 Base85 characters are converted back to 4 bytes.</li>
+				<li><strong>Efficiency:</strong> More efficient than Base64, using 5 characters to represent 4 bytes (vs Base64's 4:3 ratio).</li>
+				<li><strong>Variants:</strong> Ascii85 (Adobe), Z85 (ZeroMQ), and RFC 1924 are common variants with different alphabets.</li>
+				<li><strong>Use cases:</strong> PDF files, PostScript, some binary data encoding where space efficiency matters.</li>
+			</ul>
+		</div>
+
+		<div class="about-base64" style="margin-top:20px;">
+			<h2>Base85 Examples</h2>
+			<div style="background:#f0f8ff; padding:15px; border-radius:5px; margin:10px 0;">
+				<h3 style="color:#4CAF50; margin-bottom:10px;">Example 1: Simple Text</h3>
+				<p><strong>Input:</strong> "Hello"</p>
+				<p><strong>Base85:</strong> <code>87cURD</code></p>
+				<p><strong>Explanation:</strong> The text "Hello" is converted to Base85 encoding.</p>
+			</div>
+			
+			<div style="background:#f0f8ff; padding:15px; border-radius:5px; margin:10px 0;">
+				<h3 style="color:#4CAF50; margin-bottom:10px;">Example 2: Numbers</h3>
+				<p><strong>Input:</strong> "12345"</p>
+				<p><strong>Base85:</strong> <code>4f8#</code></p>
+				<p><strong>Explanation:</strong> Numeric string encoded in Base85 format.</p>
+			</div>
+
+			<div style="background:#f0f8ff; padding:15px; border-radius:5px; margin:10px 0;">
+				<h3 style="color:#4CAF50; margin-bottom:10px;">Example 3: Special Characters</h3>
+				<p><strong>Input:</strong> "Hello World!"</p>
+				<p><strong>Base85:</strong> <code>87cURD_*#4D</code></p>
+				<p><strong>Explanation:</strong> Text with spaces and punctuation encoded.</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// Language preference handling (set preference only, no auto redirect)
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<script>
+	function $b(id){ return document.getElementById(id); }
+
+	// Base85 alphabet (Ascii85 variant)
+	const B85_ALPHABET = '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz';
+	const B85_MAP = (() => { const m = new Map(); for (let i=0;i<B85_ALPHABET.length;i++) m.set(B85_ALPHABET[i], i); return m; })();
+
+	function bytesToBase85(bytes) {
+		if (bytes.length === 0) return '';
+		
+		// Pad bytes to multiple of 4
+		const paddedBytes = new Uint8Array(bytes);
+		const remainder = bytes.length % 4;
+		if (remainder !== 0) {
+			const padded = new Uint8Array(bytes.length + (4 - remainder));
+			padded.set(bytes);
+			return bytesToBase85Core(padded);
+		}
+		
+		return bytesToBase85Core(paddedBytes);
+	}
+
+	function bytesToBase85Core(bytes) {
+		let result = '';
+		
+		for (let i = 0; i < bytes.length; i += 4) {
+			// Convert 4 bytes to 32-bit integer (big-endian)
+			let value = 0;
+			for (let j = 0; j < 4; j++) {
+				value = (value << 8) + (bytes[i + j] || 0);
+			}
+			
+			// Convert to base85 (5 characters)
+			let base85 = '';
+			for (let k = 0; k < 5; k++) {
+				base85 = B85_ALPHABET[value % 85] + base85;
+				value = Math.floor(value / 85);
+			}
+			
+			result += base85;
+		}
+		
+		return result;
+	}
+
+	function base85ToBytes(str) {
+		if (!str) return new Uint8Array(0);
+		
+		// Remove whitespace and validate
+		str = str.replace(/\s/g, '');
+		if (str.length % 5 !== 0) {
+			throw new Error('Invalid Base85 length: must be multiple of 5');
+		}
+		
+		const result = new Uint8Array((str.length / 5) * 4);
+		
+		for (let i = 0; i < str.length; i += 5) {
+			// Convert 5 base85 characters to 32-bit integer
+			let value = 0;
+			for (let j = 0; j < 5; j++) {
+				const char = str[i + j];
+				const val = B85_MAP.get(char);
+				if (val === undefined) {
+					throw new Error('Invalid Base85 character: ' + char);
+				}
+				value = value * 85 + val;
+			}
+			
+			// Convert 32-bit integer to 4 bytes (big-endian)
+			for (let k = 0; k < 4; k++) {
+				result[Math.floor(i / 5) * 4 + k] = (value >>> (24 - k * 8)) & 0xFF;
+			}
+		}
+		
+		return result;
+	}
+
+	function encodeTextToBase85(text) {
+		const enc = new TextEncoder();
+		return bytesToBase85(enc.encode(text));
+	}
+
+	function decodeBase85ToText(b85) {
+		const dec = new TextDecoder();
+		return dec.decode(base85ToBytes(b85));
+	}
+
+	function updateB85Counts() {
+		$b('b85_in_len').textContent = String($b('b85_input').value.length);
+		$b('b85_out_len').textContent = String($b('b85_output').value.length);
+	}
+
+	function showB85Error(msg){ $b('b85_error').textContent = msg || ''; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		$b('b85_input').addEventListener('input', updateB85Counts);
+		updateB85Counts();
+
+		$b('b85_encodeBtn').addEventListener('click', function(){
+			showB85Error('');
+			try {
+				$b('b85_output').value = encodeTextToBase85($b('b85_input').value);
+			} catch(e){ showB85Error('Encode failed: ' + e.message); }
+			updateB85Counts();
+		});
+
+		$b('b85_decodeBtn').addEventListener('click', function(){
+			showB85Error('');
+			try {
+				$b('b85_input').value = decodeBase85ToText($b('b85_output').value.trim());
+			} catch(e){ showB85Error('Decode failed: ' + e.message + ' (invalid Base85)'); }
+			updateB85Counts();
+		});
+
+		$b('b85_swapBtn').addEventListener('click', function(){
+			const t = $b('b85_input').value;
+			$b('b85_input').value = $b('b85_output').value;
+			$b('b85_output').value = t;
+			updateB85Counts();
+		});
+
+		$b('b85_clearBtn').addEventListener('click', function(){
+			$b('b85_input').value = '';
+			$b('b85_output').value = '';
+			showB85Error('');
+			updateB85Counts();
+		});
+
+		$b('b85_copyInBtn').addEventListener('click', async function(){
+			const text = $b('b85_input').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$b('b85_copyOutBtn').addEventListener('click', async function(){
+			const text = $b('b85_output').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<!-- About Us -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">About Us</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Company:</strong>Chuandao AI
+				</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Address:</strong>Minzhi Street, Longhua District, Shenzhen
+				</p>
+				<p style="color: #666; line-height: 1.6;">
+					We are committed to providing high-quality online tool services and convenient Base64 encoding/decoding and other practical functions for users.
+				</p>
+			</div>
+			
+			<!-- Contact Us -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Contact Us</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Email:</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a>
+				</p>
+				<p style="color: #666; line-height: 1.6;">
+					If you have any questions or suggestions, please feel free to contact us via email. We will reply to your email within 24 hours.
+				</p>
+			</div>
+			
+			<!-- Privacy Policy -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Privacy Policy</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					We value your privacy protection and promise:
+				</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>Not to collect your personal sensitive information</li>
+					<li>All data processing is done locally</li>
+					<li>Not to use your data for commercial purposes</li>
+					<li>Strictly comply with relevant laws and regulations</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!-- Copyright Information -->
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">
+				© 2024 Chuandao AI. All rights reserved. | 
+				<a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a> | 
+				<a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">About Us</a> | 
+				<a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Contact Us</a>
+			</p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

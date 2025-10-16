@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Java Base64 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, Java, 编码, 解码, 传道工具">
+	<meta name="description" content="Java 8 的 java.util.Base64 使用说明，涵盖 Basic、URL 安全与 MIME 变体及常用方法示例。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64java.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.75rem 1rem;
+				text-decoration: none;
+				border-bottom: 1px solid #f0f0f0;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				transition: background-color 0.3s;
+			}
+
+			.nav-category:hover {
+				background-color: #f8f9fa;
+			}
+
+			.nav-category:last-child {
+				border-bottom: none;
+			}
+
+			.menu-btn {
+				display: block;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.nav-container {
+				position: relative;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 0 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-category {
+				padding: 0.6rem 0.8rem;
+				font-size: 0.85rem;
+			}
+
+			.nav-categories {
+				padding: 0.8rem;
+			}
+
+			nav {
+				padding: 0.8rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="../base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="../base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="../base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="../base64/base16.html" class="nav-category">🔟 Base16</a>
+			<a href="../base64/base32.html" class="nav-category">🔤 Base32</a>
+			<a href="../base64/base58.html" class="nav-category">🔡 Base58</a>
+			<a href="../base64/base62.html" class="nav-category">🔠 Base62</a>
+			<a href="../base64/base85.html" class="nav-category">🔣 Base85</a>
+			<a href="../base64/base100.html" class="nav-category">💯 Base100</a>
+			<a href="../base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/base64java.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>java.util.Base64（Java 8）</h1>
+	<p>Java 8 提供了 <code>java.util.Base64</code>，通过静态工厂方法获取符合 RFC 4648 / RFC 2045 的编码器与解码器。该类以静态方法为主，返回不同风格的 <code>Encoder</code> / <code>Decoder</code> 实例。</p>
+
+	<div class="about-base64" style="margin-top:16px;">
+		<h2>变体（按规范）</h2>
+		<ul>
+			<li><strong>Basic</strong>：使用 RFC 4648/2045 表 1 的字母表；编码不插入换行；解码会拒绝非 Base64 字符。</li>
+			<li><strong>URL 与文件名安全</strong>：使用 RFC 4648 表 2 的 URL 安全字母表；编码不插入换行；解码会拒绝非 Base64 字符。</li>
+			<li><strong>MIME</strong>：使用 RFC 2045 表 1 的字母表；编码按 ≤ 76 列换行并使用 CRLF（<code>\r\n</code>）作为分隔符；解码忽略换行符及其他非字母表字符。</li>
+		</ul>
+	</div>
+
+	<h2 style="margin-top:18px;">方法概览（节选）</h2>
+	<table style="width:100%; border-collapse: collapse; font-size:14px;">
+		<thead>
+			<tr>
+			<th style="border:1px solid #e0e0e0; padding:8px; text-align:left;">返回类型</th>
+			<th style="border:1px solid #e0e0e0; padding:8px; text-align:left;">方法</th>
+			<th style="border:1px solid #e0e0e0; padding:8px; text-align:left;">说明</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Encoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getEncoder()</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回 Basic Base64 编码器。</td>
+			</tr>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Decoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getDecoder()</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回 Basic Base64 解码器。</td>
+			</tr>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Encoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getUrlEncoder()</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回 URL 与文件名安全的编码器。</td>
+			</tr>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Decoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getUrlDecoder()</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回 URL 与文件名安全的解码器。</td>
+			</tr>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Encoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getMimeEncoder()</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回 MIME 编码器（76 列换行，CRLF 分隔）。</td>
+			</tr>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Encoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getMimeEncoder(int lineLength, byte[] lineSeparator)</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回自定义行宽与分隔符的 MIME 编码器。若 <code>lineSeparator</code> 含有 Base64 字母表字符将抛出 <code>IllegalArgumentException</code>。</td>
+			</tr>
+			<tr>
+				<td style="border:1px solid #e0e0e0; padding:8px;">Base64.Decoder</td>
+				<td style="border:1px solid #e0e0e0; padding:8px;"><code>getMimeDecoder()</code></td>
+				<td style="border:1px solid #e0e0e0; padding:8px;">返回 MIME 解码器。</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2 style="margin-top:18px;">快速示例</h2>
+	<pre style="background:#1e1e1e; color:#d4d4d4; padding:12px; border-radius:6px; overflow:auto;">
+import java.util.Base64;
+
+// Basic
+String encoded = Base64.getEncoder().encodeToString("hello".getBytes("UTF-8"));
+byte[] bytes = Base64.getDecoder().decode(encoded);
+
+// URL-safe
+String url = Base64.getUrlEncoder().encodeToString("a/b?c".getBytes("UTF-8"));
+
+// MIME (wrap at 76 columns)
+Base64.Encoder mime = Base64.getMimeEncoder();
+		</pre>
+
+		<p style="margin-top:10px; font-size:13px; color:#607d8b;">参考：Oracle Java SE 8 — <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Base64.html" target="_blank" rel="noopener">java.util.Base64</a></p>
+	</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<script>
+function encodeHex() {
+	const text = document.getElementById('textInput').value;
+	const bytes = new TextEncoder().encode(text);
+	let out = '';
+	for (let i = 0; i < bytes.length; i++) {
+		out += bytes[i].toString(16).padStart(2, '0');
+	}
+	document.getElementById('hexOutput').value = out;
+}
+
+function decodeHex() {
+	const raw = document.getElementById('hexOutput').value;
+	const hex = (raw || '').replace(/[^0-9a-fA-F]/g, '');
+	if (hex.length % 2 !== 0) {
+		alert('Invalid hex: length must be even.');
+		return;
+	}
+	const bytes = new Uint8Array(hex.length / 2);
+	for (let i = 0; i < hex.length; i += 2) {
+		const byte = parseInt(hex.substr(i, 2), 16);
+		if (Number.isNaN(byte)) {
+			alert('Invalid hex content.');
+			return;
+		}
+		bytes[i / 2] = byte;
+	}
+	const text = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+	document.getElementById('textInput').value = text;
+}
+
+function clearAll() {
+	document.getElementById('textInput').value = '';
+	document.getElementById('hexOutput').value = '';
+}
+
+async function copyOutput() {
+	const val = document.getElementById('hexOutput').value;
+	try {
+		if (navigator.clipboard && window.isSecureContext) {
+			await navigator.clipboard.writeText(val);
+		} else {
+			const ta = document.createElement('textarea');
+			ta.value = val; document.body.appendChild(ta); ta.select();
+			document.execCommand('copy'); document.body.removeChild(ta);
+		}
+		alert('Copied');
+	} catch (e) {
+		alert('Copy failed');
+	}
+}
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

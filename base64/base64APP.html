@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>iOS & Android Base64 - Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+	<meta name="keywords" content="Base64, iOS, Android, Swift, Kotlin, mobile development, Chuandao Tools">
+	<meta name="description" content="iOS and Android Base64 encoding/decoding APIs and methods. Swift and Kotlin examples for mobile development.">		
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64APP.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.75rem 1rem;
+				text-decoration: none;
+				border-bottom: 1px solid #f0f0f0;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				transition: background-color 0.3s;
+			}
+
+			.nav-category:hover {
+				background-color: #f8f9fa;
+			}
+
+			.nav-category:last-child {
+				border-bottom: none;
+			}
+
+			.menu-btn {
+				display: block;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.nav-container {
+				position: relative;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 0 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-category {
+				padding: 0.6rem 0.8rem;
+				font-size: 0.85rem;
+			}
+
+			.nav-categories {
+				padding: 0.8rem;
+			}
+
+			nav {
+				padding: 0.8rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 Home</a>
+			<a href="../base64/base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+			<a href="../base64/base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+			<a href="../base64/image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+			<a href="../base64/base16.html" class="nav-category">🔟 Base16</a>
+			<a href="../base64/base32.html" class="nav-category">🔤 Base32</a>
+			<a href="../base64/base58.html" class="nav-category">🔡 Base58</a>
+			<a href="../base64/base62.html" class="nav-category">🔠 Base62</a>
+			<a href="../base64/base85.html" class="nav-category">🔣 Base85</a>
+			<a href="../base64/base100.html" class="nav-category">💯 Base100</a>
+			<a href="../base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../cn/base64/base64APP.html" class="nav-category" id="lang-switch">🌐 中文</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>iOS & Android Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		This page covers Base64 encoding/decoding in iOS (Swift) and Android (Kotlin/Java) mobile development.
+		It includes native APIs, common patterns, and practical examples for mobile applications.
+	</p>
+
+	<h2 class="category-title">Overview</h2>
+	<p style="line-height: 1.9; color: #444;">
+		Both iOS and Android provide built-in Base64 support: iOS uses <code>Data</code> and <code>String</code> extensions,
+		while Android uses <code>Base64</code> utility class. This guide covers encoding/decoding strings, data, and images
+		for mobile development scenarios.
+	</p>
+
+	<h2 class="category-title">iOS (Swift) Examples</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-apple"></i></div>
+			<h3 style="margin-bottom: 8px;">Basic String Encoding/Decoding</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import Foundation
+
+// String to Base64
+let text = "Hello, World!"
+let data = text.data(using: .utf8)!
+let base64String = data.base64EncodedString()
+print(base64String) // SGVsbG8sIFdvcmxkIQ==
+
+// Base64 to String
+if let decodedData = Data(base64Encoded: base64String) {
+    let decodedString = String(data: decodedData, encoding: .utf8)
+    print(decodedString) // Hello, World!
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">Image to Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import UIKit
+
+// UIImage to Base64
+func imageToBase64(_ image: UIImage) -> String? {
+    guard let imageData = image.jpegData(compressionQuality: 0.8) else { return nil }
+    return imageData.base64EncodedString()
+}
+
+// Base64 to UIImage
+func base64ToImage(_ base64String: String) -> UIImage? {
+    guard let data = Data(base64Encoded: base64String) else { return nil }
+    return UIImage(data: data)
+}
+
+// Usage
+let image = UIImage(named: "sample")
+let base64Image = imageToBase64(image)
+let restoredImage = base64ToImage(base64Image!)
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
+			<h3 style="margin-bottom: 8px;">URL-Safe Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import Foundation
+
+// URL-safe Base64 encoding
+func urlSafeBase64Encode(_ data: Data) -> String {
+    return data.base64EncodedString()
+        .replacingOccurrences(of: "+", with: "-")
+        .replacingOccurrences(of: "/", with: "_")
+        .replacingOccurrences(of: "=", with: "")
+}
+
+// URL-safe Base64 decoding
+func urlSafeBase64Decode(_ string: String) -> Data? {
+    let base64 = string
+        .replacingOccurrences(of: "-", with: "+")
+        .replacingOccurrences(of: "_", with: "/")
+    
+    // Add padding if needed
+    let padding = String(repeating: "=", count: (4 - base64.count % 4) % 4)
+    return Data(base64Encoded: base64 + padding)
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">Android (Kotlin/Java) Examples</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-android"></i></div>
+			<h3 style="margin-bottom: 8px;">Basic String Encoding/Decoding</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.util.Base64
+
+// Kotlin
+val text = "Hello, World!"
+val encoded = Base64.encodeToString(text.toByteArray(), Base64.DEFAULT)
+println(encoded) // SGVsbG8sIFdvcmxkIQ==
+
+val decoded = String(Base64.decode(encoded, Base64.DEFAULT))
+println(decoded) // Hello, World!
+
+// Java
+String text = "Hello, World!";
+String encoded = Base64.encodeToString(text.getBytes(), Base64.DEFAULT);
+System.out.println(encoded);
+
+byte[] decoded = Base64.decode(encoded, Base64.DEFAULT);
+String result = new String(decoded);
+System.out.println(result);
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">Image to Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+
+// Kotlin
+fun bitmapToBase64(bitmap: Bitmap): String {
+    val outputStream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+    val byteArray = outputStream.toByteArray()
+    return Base64.encodeToString(byteArray, Base64.DEFAULT)
+}
+
+fun base64ToBitmap(base64String: String): Bitmap? {
+    val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+    return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+}
+
+// Java
+public String bitmapToBase64(Bitmap bitmap) {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+    byte[] byteArray = outputStream.toByteArray();
+    return Base64.encodeToString(byteArray, Base64.DEFAULT);
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL-Safe Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.util.Base64
+
+// Kotlin
+fun urlSafeBase64Encode(data: ByteArray): String {
+    return Base64.encodeToString(data, Base64.URL_SAFE or Base64.NO_PADDING)
+}
+
+fun urlSafeBase64Decode(base64String: String): ByteArray {
+    return Base64.decode(base64String, Base64.URL_SAFE or Base64.NO_PADDING)
+}
+
+// Java
+public String urlSafeBase64Encode(byte[] data) {
+    return Base64.encodeToString(data, Base64.URL_SAFE | Base64.NO_PADDING);
+}
+
+public byte[] urlSafeBase64Decode(String base64String) {
+    return Base64.decode(base64String, Base64.URL_SAFE | Base64.NO_PADDING);
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">File I/O Examples</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-apple"></i></div>
+			<h3 style="margin-bottom: 8px;">iOS File Operations</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import Foundation
+
+// Save Base64 to file
+func saveBase64ToFile(_ base64String: String, filename: String) {
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let fileURL = documentsPath.appendingPathComponent(filename)
+    try? base64String.write(to: fileURL, atomically: true, encoding: .utf8)
+}
+
+// Load Base64 from file
+func loadBase64FromFile(_ filename: String) -> String? {
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let fileURL = documentsPath.appendingPathComponent(filename)
+    return try? String(contentsOf: fileURL, encoding: .utf8)
+}
+
+// Binary file to Base64
+func fileToBase64(_ fileURL: URL) -> String? {
+    guard let data = try? Data(contentsOf: fileURL) else { return nil }
+    return data.base64EncodedString()
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-android"></i></div>
+			<h3 style="margin-bottom: 8px;">Android File Operations</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.content.Context
+import android.util.Base64
+import java.io.File
+import java.io.FileOutputStream
+import java.io.FileInputStream
+
+// Kotlin
+class Base64FileManager(private val context: Context) {
+    
+    fun saveBase64ToFile(base64String: String, filename: String) {
+        val file = File(context.filesDir, filename)
+        file.writeText(base64String)
+    }
+    
+    fun loadBase64FromFile(filename: String): String? {
+        val file = File(context.filesDir, filename)
+        return if (file.exists()) file.readText() else null
+    }
+    
+    fun fileToBase64(filePath: String): String? {
+        val file = File(filePath)
+        if (!file.exists()) return null
+        val bytes = file.readBytes()
+        return Base64.encodeToString(bytes, Base64.DEFAULT)
+    }
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">API Reference</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-apple"></i></div>
+			<h3 style="margin-bottom: 8px;">iOS Base64 APIs</h3>
+			<ul style="line-height: 1.8; color:#444;">
+				<li><code>Data.base64EncodedString()</code> - Encode Data to Base64 string</li>
+				<li><code>Data(base64Encoded:)</code> - Decode Base64 string to Data</li>
+				<li><code>String.data(using:)</code> - Convert String to Data</li>
+				<li><code>String(data:encoding:)</code> - Convert Data to String</li>
+				<li><code>UIImage.jpegData(compressionQuality:)</code> - Convert UIImage to JPEG Data</li>
+				<li><code>UIImage(data:)</code> - Create UIImage from Data</li>
+			</ul>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-android"></i></div>
+			<h3 style="margin-bottom: 8px;">Android Base64 APIs</h3>
+			<ul style="line-height: 1.8; color:#444;">
+				<li><code>Base64.encodeToString(byte[], flags)</code> - Encode bytes to Base64</li>
+				<li><code>Base64.decode(String, flags)</code> - Decode Base64 to bytes</li>
+				<li><code>Base64.DEFAULT</code> - Standard encoding flags</li>
+				<li><code>Base64.URL_SAFE</code> - URL-safe encoding</li>
+				<li><code>Base64.NO_PADDING</code> - No padding characters</li>
+				<li><code>Base64.NO_WRAP</code> - No line breaks</li>
+			</ul>
+		</div>
+	</div>
+
+	<h2 class="category-title">Best Practices</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>Memory Management</b>: For large images, consider compression and streaming approaches.</li>
+		<li><b>Error Handling</b>: Always handle potential nil/exception cases when decoding Base64.</li>
+		<li><b>Performance</b>: Use background threads for large Base64 operations to avoid blocking UI.</li>
+		<li><b>Security</b>: Base64 is not encryption - use proper encryption for sensitive data.</li>
+		<li><b>URL Safety</b>: Use URL-safe Base64 variants when embedding in URLs or JSON.</li>
+		<li><b>File Size</b>: Base64 increases data size by ~33%, consider alternatives for large files.</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// Language preference handling (set preference only, no auto redirect)
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+        });
+    }
+})();
+</script>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<!-- About Us -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">About Us</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Company:</strong>Chuandao AI
+				</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Address:</strong>Minzhi Street, Longhua District, Shenzhen
+				</p>
+				<p style="color: #666; line-height: 1.6;">
+					We are committed to providing high-quality online tool services and convenient Base64 encoding/decoding and other practical functions for users.
+				</p>
+			</div>
+			
+			<!-- Contact Us -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Contact Us</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					<strong>Email:</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a>
+				</p>
+				<p style="color: #666; line-height: 1.6;">
+					If you have any questions or suggestions, please feel free to contact us via email. We will reply to your email within 24 hours.
+				</p>
+			</div>
+			
+			<!-- Privacy Policy -->
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Privacy Policy</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+					We value your privacy protection and promise:
+				</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>Not to collect your personal sensitive information</li>
+					<li>All data processing is done locally</li>
+					<li>Not to use your data for commercial purposes</li>
+					<li>Strictly comply with relevant laws and regulations</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!-- Copyright Information -->
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">
+				© 2024 Chuandao AI. All rights reserved. | 
+				<a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a> | 
+				<a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">About Us</a> | 
+				<a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Contact Us</a>
+			</p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

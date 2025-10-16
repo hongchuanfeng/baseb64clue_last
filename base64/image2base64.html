@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Image to Base64 - Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+	<meta name="keywords" content="online tool collection, Base64, Chandao Tools">
+	<meta name="description" content="Chandao Tools is a collection of free, no-login online utilities across life, dev, encoding/decoding, encryption, images, and fun.">				
+	<link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/image2base64.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 8px;
+			padding: 20px;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		}
+		.upload-area {
+			border: 2px dashed #ddd;
+			border-radius: 8px;
+			padding: 40px;
+			text-align: center;
+			margin-bottom: 20px;
+			cursor: pointer;
+			color: #666;
+		}
+		.upload-area:hover {
+			border-color: #4CAF50;
+			color: #4CAF50;
+		}
+		.clear-btn {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			background: #fff;
+			cursor: pointer;
+			color: #666;
+		}
+		.clear-btn:hover {
+			background: #f5f5f5;
+		}
+		.result-section {
+			margin-bottom: 20px;
+		}
+		.result-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 10px;
+			background: #e8f5e9;
+			border-radius: 4px 4px 0 0;
+			margin-bottom: 1px;
+		}
+		.result-title {
+			color: #2e7d32;
+			font-weight: 500;
+		}
+		.copy-btn {
+			padding: 4px 8px;
+			background: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 12px;
+		}
+		.copy-btn:hover {
+			background: #43A047;
+		}
+		.result-content {
+			width: 100%;
+			min-height: 200px;
+			padding: 10px;
+			border: 1px solid #e0e0e0;
+			border-radius: 0 0 4px 4px;
+			resize: vertical;
+			font-family: monospace;
+			font-size: 14px;
+			line-height: 1.4;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+				font-size: 14px;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 20px !important;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	<!-- 添加图片处理所需的库 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.1/jimp.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 Home</a>
+			<a href="base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+			<a href="base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+			<a href="image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../cn/base64/image2base64.html" class="nav-category" id="lang-switch">🌐 中文</a>
+		</div>
+	</div>
+</nav>
+
+<h1 style="text-align: center">Image to Base64</h1>
+<div class="container">
+	<!-- Function Description -->
+	<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #4CAF50; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+			Function Description
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🖼️ Supported Formats</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Supports common image formats like JPG, PNG, GIF, WebP, BMP, SVG</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">📤 Upload Methods</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Click to upload or drag and drop images to the upload area</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔒 Privacy Protection</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">All processing is done locally, images are not uploaded to servers</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">📋 One-Click Copy</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">Generate Base64 code and HTML code with one-click copy support</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Usage Steps -->
+	<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+		<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-list-ol" style="margin-right: 8px;"></i>
+			Usage Steps
+		</h3>
+		<ol style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+			<li><strong>Select Image:</strong> Click the upload area or drag and drop image files</li>
+			<li><strong>Auto Convert:</strong> Images will be automatically converted to Base64 encoding</li>
+			<li><strong>Get Results:</strong> Copy the Base64 string or HTML code</li>
+			<li><strong>Clear and Retry:</strong> Click the "Clear" button to clear results and upload again</li>
+		</ol>
+	</div>
+
+	<!-- Application Scenarios -->
+	<div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196f3;">
+		<h3 style="color: #1976d2; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
+			Application Scenarios
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🌐</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Web Embedding</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Embed images directly into HTML</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">📧</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Email Attachments</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Embed image content in emails</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">💾</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">Data Storage</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Store images in databases</p>
+			</div>
+			<div style="text-align: center; padding: 10px; background: white; border-radius: 6px;">
+				<div style="font-size: 24px; margin-bottom: 8px;">🔧</div>
+				<h4 style="color: #333; margin-bottom: 5px; font-size: 14px;">API Transmission</h4>
+				<p style="color: #666; font-size: 12px; margin: 0;">Transmit image data via JSON</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="upload-area" id="dropZone">
+		<div style="font-size: 18px; margin-bottom: 10px;">📁</div>
+		<div style="font-size: 16px; margin-bottom: 5px;">Click to upload or drag images here</div>
+		<div style="font-size: 12px; color: #999;">Supports JPG, PNG, GIF, WebP, BMP, SVG formats</div>
+	</div>
+
+	<button class="clear-btn" id="clearBtn">🗑️ Clear Results</button>
+
+	<!-- Image Preview Area -->
+	<div class="result-section" id="previewSection" style="display: none;">
+		<div class="result-header">
+			<span class="result-title">🖼️ Image Preview</span>
+			<button class="copy-btn" id="downloadBtn" style="background: #ff9800;">💾 Download Image</button>
+		</div>
+		<div style="text-align: center; padding: 20px; background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 0 0 4px 4px;">
+			<img id="previewImage" style="max-width: 100%; max-height: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" alt="Preview Image">
+			<div id="imageInfo" style="margin-top: 10px; font-size: 12px; color: #666;"></div>
+		</div>
+	</div>
+
+	<div class="result-section">
+		<div class="result-header">
+			<span class="result-title">📄 Base64 Encoding</span>
+			<button class="copy-btn" data-target="base64Output">📋 Copy</button>
+		</div>
+		<div style="background: #f5f5f5; padding: 10px; font-size: 12px; color: #666; border-bottom: 1px solid #e0e0e0;">
+			💡 <strong>Usage:</strong> Can be directly used for CSS background-image, JavaScript image processing, API data transmission, etc.
+		</div>
+		<textarea class="result-content" id="base64Output" readonly placeholder="Base64 encoding will be displayed after uploading image..."></textarea>
+	</div>
+
+	<div class="result-section">
+		<div class="result-header">
+			<span class="result-title">🌐 HTML Code</span>
+			<button class="copy-btn" data-target="htmlOutput">📋 Copy</button>
+		</div>
+		<div style="background: #f5f5f5; padding: 10px; font-size: 12px; color: #666; border-bottom: 1px solid #e0e0e0;">
+			💡 <strong>Usage:</strong> Can be directly pasted into HTML files, images will be embedded in the page without additional files
+		</div>
+		<textarea class="result-content" id="htmlOutput" readonly placeholder="HTML code will be displayed after uploading image..."></textarea>
+	</div>
+
+	<!-- Usage Examples -->
+	<div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #2e7d32; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-code" style="margin-right: 8px;"></i>
+			Usage Examples
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">CSS Background Image</h4>
+				<pre style="background: white; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; margin: 0;"><code>.background {
+    background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABA...');
+    background-size: cover;
+}</code></pre>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">JavaScript Image</h4>
+				<pre style="background: white; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; margin: 0;"><code>const img = new Image();
+img.src = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABA...';
+document.body.appendChild(img);</code></pre>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">JSON Data</h4>
+				<pre style="background: white; padding: 10px; border-radius: 4px; font-size: 12px; overflow-x: auto; margin: 0;"><code>{
+    "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABA...",
+    "type": "jpeg",
+    "size": "1024x768"
+}</code></pre>
+			</div>
+		</div>
+	</div>
+
+	<!-- Notes -->
+	<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #ff9800;">
+		<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+			Notes
+		</h3>
+		<ul style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+			<li><strong>File Size:</strong> Base64 encoding increases file size by approximately 33%, large images may affect page loading speed</li>
+			<li><strong>Browser Cache:</strong> Embedded images cannot be cached separately by browsers, may affect performance</li>
+			<li><strong>Code Length:</strong> Generated Base64 strings are very long, recommended for small icons or important images</li>
+			<li><strong>Compatibility:</strong> All modern browsers support Base64 images, IE8+ also supports</li>
+			<li><strong>Privacy Security:</strong> Image content is fully visible, not suitable for storing sensitive information</li>
+		</ul>
+	</div>
+</div>
+
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+            <!-- About Us -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">About Us</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>Company:</strong>Chuandao AI
+                </p>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>Address:</strong>Minzhi Street, Longhua District, Shenzhen
+                </p>
+                <p style="color: #666; line-height: 1.6;">
+                    We are committed to providing high-quality online tool services and convenient Base64 encoding/decoding and other practical functions for users.
+                </p>
+            </div>
+            
+            <!-- Contact Us -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Contact Us</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    <strong>Email:</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a>
+                </p>
+                <p style="color: #666; line-height: 1.6;">
+                    If you have any questions or suggestions, please feel free to contact us via email. We will reply to your email within 24 hours.
+                </p>
+            </div>
+            
+            <!-- Privacy Policy -->
+            <div>
+                <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">Privacy Policy</h4>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">
+                    We value your privacy protection and promise:
+                </p>
+                <ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+                    <li>Not to collect your personal sensitive information</li>
+                    <li>All data processing is done locally</li>
+                    <li>Not to use your data for commercial purposes</li>
+                    <li>Strictly comply with relevant laws and regulations</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Copyright Information -->
+        <div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+            <p style="color: #999; font-size: 0.9rem; margin: 0;">
+                © 2024 Chuandao AI. All rights reserved. | 
+                <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a> | 
+                <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">About Us</a> | 
+                <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">Contact Us</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+	const dropZone = document.getElementById('dropZone');
+	const clearBtn = document.getElementById('clearBtn');
+	const base64Output = document.getElementById('base64Output');
+	const htmlOutput = document.getElementById('htmlOutput');
+	const previewSection = document.getElementById('previewSection');
+	const previewImage = document.getElementById('previewImage');
+	const imageInfo = document.getElementById('imageInfo');
+	const downloadBtn = document.getElementById('downloadBtn');
+
+	let currentFile = null;
+
+	// 处理拖放上传
+	dropZone.addEventListener('dragover', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#4CAF50';
+	});
+
+	dropZone.addEventListener('dragleave', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+	});
+
+	dropZone.addEventListener('drop', (e) => {
+		e.preventDefault();
+		dropZone.style.borderColor = '#ddd';
+		const file = e.dataTransfer.files[0];
+		handleFile(file);
+	});
+
+	// 处理点击上传
+	dropZone.addEventListener('click', () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.onchange = (e) => {
+			const file = e.target.files[0];
+			handleFile(file);
+		};
+		input.click();
+	});
+
+	// 处理文件
+	function handleFile(file) {
+		if (file && file.type.startsWith('image/')) {
+			currentFile = file;
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				const base64String = e.target.result;
+				
+				// 显示预览图片
+				previewImage.src = base64String;
+				previewSection.style.display = 'block';
+				
+				// 显示图片信息
+				displayImageInfo(file);
+				
+				// 生成Base64和HTML代码
+				base64Output.value = base64String;
+				htmlOutput.value = `<img src="${base64String}" alt="Base64 Image">`;
+			};
+			reader.readAsDataURL(file);
+		} else {
+			alert('请选择有效的图片文件！');
+		}
+	}
+
+	// 显示图片信息
+	function displayImageInfo(file) {
+		const fileSize = (file.size / 1024).toFixed(2);
+		const fileSizeKB = fileSize < 1024 ? `${fileSize} KB` : `${(file.size / 1024 / 1024).toFixed(2)} MB`;
+		
+		// 获取图片尺寸
+		const img = new Image();
+		img.onload = function() {
+			imageInfo.innerHTML = `
+				<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 10px;">
+					<div><strong>文件名：</strong>${file.name}</div>
+					<div><strong>文件大小：</strong>${fileSizeKB}</div>
+					<div><strong>图片尺寸：</strong>${this.width} × ${this.height}</div>
+					<div><strong>文件类型：</strong>${file.type}</div>
+				</div>
+			`;
+		};
+		img.src = URL.createObjectURL(file);
+	}
+
+	// 下载图片功能
+	downloadBtn.addEventListener('click', () => {
+		if (currentFile) {
+			const link = document.createElement('a');
+			link.href = URL.createObjectURL(currentFile);
+			link.download = currentFile.name;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+	});
+
+	// 清空数据
+	clearBtn.addEventListener('click', () => {
+		base64Output.value = '';
+		htmlOutput.value = '';
+		previewSection.style.display = 'none';
+		previewImage.src = '';
+		imageInfo.innerHTML = '';
+		currentFile = null;
+	});
+
+	// 复制功能
+	document.querySelectorAll('.copy-btn').forEach(btn => {
+		btn.addEventListener('click', () => {
+			const targetId = btn.dataset.target;
+			if (targetId) {
+				const targetElement = document.getElementById(targetId);
+				targetElement.select();
+				document.execCommand('copy');
+
+				const originalText = btn.textContent;
+				btn.textContent = '已复制!';
+				setTimeout(() => {
+					btn.textContent = originalText;
+				}, 1500);
+			}
+		});
+	});
+</script>
+<script>
+// Language preference handling (set preference only, no auto redirect)
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+        });
+    }
+})();
+</script>
+</body>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto-close after clicking menu items
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+
+
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Base64 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, 编码, 解码, 传道工具">
+	<meta name="description" content="介绍 Base64 的原理、表格与示例：二进制到文本的编码方式、填充规则及常见用法。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64Intro.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* Color accents for different Base variants */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 提升正文的垂直间距可读性 */
+		.container p { margin: 1rem 0; line-height: 1.9; }
+		.container h2 { margin: 1.6rem 0 1rem; }
+		.container h3 { margin: 1.2rem 0 0.8rem; }
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+				font-size: 14px;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 20px !important;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/base64Intro.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>Base64 原理</h1>
+
+	<p>在计算机领域，<strong>Base64</strong> 是一类将 <em>二进制数据</em> 转为 <em>可打印</em> 字符序列的 <em>二进制转文本</em> 编码方案，字符集包含 64 个唯一符号。原始数据按 6 位为一组处理，每组映射为 64 个字符之一。</p>
+
+	<p>与其他二进制转文本编码类似，Base64 便于在仅可靠支持文本的通道中传输二进制数据。它在 Web 端尤为常见，可将 <em>图片</em> 等二进制资源嵌入 HTML/CSS 等文本资源中。</p>
+
+	<p>由于早期 SMTP 仅支持 <em>7 位 ASCII</em>，Base64 也被广泛用于 <em>邮件</em> 附件的发送：发送前将附件编码为 Base64，接收后再解码，可避免老旧服务器对附件的干扰。</p>
+
+	<p>相较原始二进制数据，Base64 编码会带来约 <strong>33%–37%</strong> 的体积开销（编码本身约 33%，可选换行最多再增加约 4%）。</p>
+	
+	<div class="two">
+		<h2>设计</h2>
+		<p>用于表示 64 个数值的字符集在不同实现中可能不同。一般选择各编码中常见且可打印的字符，避免在历史上非 8 位干净的系统（如电子邮件）中被篡改。例如，MIME 的 Base64 前 62 个值使用 A–Z、a–z、0–9；其他变体也类似，但最后两个符号可能不同（如 UTF‑7）。</p>
+		<p>该类编码最早用于同一操作系统间的拨号通信，例如 UNIX 的 uuencode、TRS‑80 的 BinHex（后被移植到 Macintosh）。这些方案会假设哪些字符是“安全”的，例如 uuencode 使用大写字母、数字和多种标点，而不使用小写字母。</p>
+	</div>
+
+	<div class="three">
+		<h2>RFC 4648 中的 Base64 表</h2>
+		<table style="width:100%; border-collapse: collapse; font-size:14px; margin-top:16px;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">索引</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">二进制</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">字符</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Index</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Binary</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:left;">Char.</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">0</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">A</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">16</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">Q</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">32</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">g</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">48</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">w</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">1</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">B</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">17</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">R</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">33</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">h</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">49</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">x</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">2</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">C</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">18</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">S</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">34</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">i</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">50</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">y</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">3</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">D</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">19</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">T</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">35</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">j</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">51</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">z</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">4</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">E</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">20</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">U</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">36</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">k</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">52</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">0</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">5</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">F</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">21</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">V</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">37</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">l</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">53</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">1</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">6</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">G</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">22</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">W</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">38</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">m</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">54</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">2</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">7</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">000111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">H</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">23</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">010111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">X</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">39</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">100111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">n</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">55</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">110111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">3</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">8</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">I</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">24</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">Y</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">40</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">o</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">56</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111000</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">4</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">9</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">J</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">25</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">Z</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">41</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">p</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">57</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111001</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">5</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">10</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">K</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">26</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">a</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">42</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">q</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">58</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111010</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">6</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">11</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">L</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">27</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">b</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">43</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">r</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">59</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111011</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">7</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">12</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">M</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">28</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">c</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">44</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">s</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">60</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111100</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">8</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">13</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">N</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">29</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">d</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">45</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">t</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">61</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111101</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">9</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">14</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">O</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">30</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">e</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">46</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">u</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">62</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111110</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">+</td></tr>
+				<tr><td style="border:1px solid #cfd8dc; padding:6px 8px;">15</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">001111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">P</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">31</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">011111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">f</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">47</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">101111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">v</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">63</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">111111</td><td style="border:1px solid #cfd8dc; padding:6px 8px;">/</td></tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="11" style="border:1px solid #cfd8dc; padding:6px 8px; text-align:right; font-weight:600;">Padding</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">=</td>
+				</tr>
+			</tfoot>
+		</table>
+
+	</div>
+
+	<div class="four">
+		<h2>示例</h2>
+		<p>
+			In the above quote, the encoded value of Man is TWFu. Encoded in ASCII, the characters M, a, and n are stored as the byte values 77, 97, and 110, which are the 8-bit binary values 01001101, 01100001, and 01101110. These three values are joined together into a 24-bit string, producing 010011010110000101101110. Groups of 6 bits (6 bits have a maximum of 26 = 64 different binary values) are converted into individual numbers from start to end (in this case, there are four numbers in a 24-bit string), which are then converted into their corresponding Base64 character values.
+
+As this example illustrates, Base64 encoding converts three octets into four encoded characters.
+		</p>
+	</div>
+
+	<div class="fiver">
+		<h2>示例：源字符串（Man）的 Base64 编码</h2>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; width:140px;">源 ASCII 文本</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">n</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">字符</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">n</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">77 (0x4d)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">97 (0x61)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">110 (0x6e)</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Bits</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 0 0 1 1 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 1 0 0 0 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 1 0 1 1 1 0</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Sextets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">19</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">22</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">5&nbsp;&nbsp;&nbsp;46</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">T</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">W</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">F&nbsp;&nbsp;&nbsp;u</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">84 (0x54)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">87 (0x57)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">70 (0x46)&nbsp;&nbsp;&nbsp;117 (0x75)</td>
+				</tr>
+			</tbody>
+		</table>
+		<p style="margin:8px 0;">注意：末块可能添加 <code>=</code> 作为填充，以保证最后一组包含 4 个 Base64 字符。</p>
+		<p>Hexadecimal to octal transformation is useful to convert between binary and Base64. For example, the hexadecimal representation of the 24 bits above is 4D616E, whose octal is 23260556. Split into pairs (23 26 05 56) and map each to decimal (19 22 05 46); using those four decimal numbers as indices for the Base64 alphabet yields the ASCII characters <em>TWFu</em>.</p>
+		<p>If there are only two significant input octets (e.g., "Ma"), or when the last input group contains only two octets, all 16 bits are captured in the first three Base64 digits (18 bits); the two least significant bits of the last 6‑bit block will be zero and are discarded on decoding (along with the succeeding = padding character).</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; width:140px;">Source ASCII text</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">M</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">a</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">77 (0x4d)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">97 (0x61)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Bits</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 0 0 1 1 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 1 1 0 0 0 0 1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0 0</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Sextets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">19</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">22</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">4</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Character</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">T</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">W</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">E</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;">Base64 encoded<br/>Octets</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">84 (0x54)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">87 (0x57)</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">69 (0x45)</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+
+	<div class="sex">
+		<h2>输出填充</h2>
+		<p>Because Base64 is a six‑bit encoding, and because the decoded values are divided into 8‑bit octets, every four characters of Base64‑encoded text (4 sextets = 4 × 6 = 24 bits) represent three octets of unencoded text or data (3 octets = 3 × 8 = 24 bits). This means that when the length of the unencoded input is not a multiple of three, the encoded output must have padding added so that its length is a multiple of four. The padding character is <code>=</code>, which indicates that no further bits are needed to fully encode the input.</p>
+		<p>The example below illustrates how truncating the input of the quote changes the output padding:</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;" colspan="2">输入</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;" colspan="2">输出</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">填充</th>
+				</tr>
+				<tr>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">文本</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">长度</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">文本</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">长度</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light work.</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">11</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29yay4=</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">16</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light work</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">10</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29yaw==</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">16</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wor</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">9</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29y</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">12</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">0</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wo</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">8</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd28=</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">12</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light w</em></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">7</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgdw==</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">12</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>解码时并非必须依赖填充字符，因为可由编码文本长度推断缺失字节。一些实现要求填充，另一些则不需要。常见的需要填充的场景是多个 Base64 文件被拼接。</p>
+	</div>
+
+	<div class="seven">
+		<h2>带填充的解码</h2>
+		<p>When decoding Base64 text, four characters are typically converted back to three bytes. The only exceptions are when padding characters exist. A single <code>=</code> indicates that the four characters will decode to only two bytes, while <code>==</code> indicates that the four characters will decode to only a single byte. For example:</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">编码</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">填充</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">长度</th>
+			<th style="border:1px solid #cfd8dc; padding:6px 8px;">解码</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgdw==</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">==</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light w</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd28=</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">=</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wo</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29y</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">None</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">3</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wor</em></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>另一种理解填充字符的方式是：每遇到一个 <code>=</code>，就从位串末尾丢弃若干位。例如解码 <code>bGlnaHQgdw==</code> 时，将每个字符（除末尾 <code>=</code>）转为 6 位，再对两个 <code>=</code> 各丢弃 2 位，共 4 位；余下 8 位即 1 个字节。</p>
+	</div>
+
+	<div class="d9">
+		<h2>不带填充的解码</h2>
+		<p>无填充时，按 4 个字符 → 3 个字节的节奏反复解码，末尾可能不足 4 个字符，只会剩余 2 或 3 个字符；不会只剩 1 个字符，因为单个 Base64 字符只有 6 位，构成 1 字节需要至少 2 个字符：第一个提供 6 位，第二个提供其前 2 位。例如：</p>
+		<table style="width:100%; border-collapse:collapse; font-size:14px; margin:12px 0;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Encoded</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Length</th>
+					<th style="border:1px solid #cfd8dc; padding:6px 8px;">Decoded</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgdw</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">1</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light w</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">3</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd28</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">2</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wo</em></td>
+				</tr>
+				<tr>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">4</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><code>bGlnaHQgd29y</code></td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px; text-align:center;">3</td>
+					<td style="border:1px solid #cfd8dc; padding:6px 8px;"><em>light wor</em></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>不同解码器对无填充的处理并不一致。此外，允许无填充解码会导致多个不同字符串解码成同一字节序列，存在潜在安全风险。</p>
+	</div>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto-close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

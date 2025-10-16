@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Chuandao AI Base64 Tools - Free Online Base64 Tool: Image to Base64/SQL Base64/Multi-format Decoding</title>
+    <meta name="keywords" content="about us, contact us, Chuandao AI, Base64 tools">
+    <meta name="description" content="Chuandao AI is committed to providing high-quality online Base64 encoding/decoding tool services and convenient practical functions for users.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/css.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        /* Navigation styles */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-categories {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-category {
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-category:hover {
+            color: #007bff;
+        }
+
+        /* 为不同的Base编码图标设置不同颜色 */
+        .nav-category[href*="base32"] {
+            filter: hue-rotate(120deg) saturate(1.5);
+        }
+        .nav-category[href*="base58"] {
+            filter: hue-rotate(60deg) saturate(1.5);
+        }
+        .nav-category[href*="base62"] {
+            filter: hue-rotate(0deg) saturate(1.5);
+        }
+        .nav-category[href*="base85"] {
+            filter: hue-rotate(280deg) saturate(1.5);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Page content styles */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-right: 1rem;
+        }
+
+        .contact-details h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: #666;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                z-index: 1000;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .nav-categories.active {
+                display: flex;
+            }
+
+            .nav-category {
+                padding: 0.5rem 0;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .logo img {
+                width: 80px !important;
+                margin-right: 20px !important;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html" class="nav-item">
+                <img src="static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+            </a>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="nav-categories">
+            <a href="index.html" class="nav-category">🏠 Home</a>
+            <a href="base64/base64Intro.html" class="nav-category">📚 Base64 Principle</a>
+            <a href="base64/base64.html" class="nav-category">🔐 Base64 Encode/Decode</a>
+            <a href="base64/image2base64.html" class="nav-category">🖼️ Base64/Image</a>
+            <a href="base64/base16.html" class="nav-category">🔟 Base16</a>
+            <a href="base64/base32.html" class="nav-category">🔤 Base32</a>
+            <a href="base64/base58.html" class="nav-category">🔡 Base58</a>
+            <a href="base64/base62.html" class="nav-category">🔠 Base62</a>
+            <a href="base64/base85.html" class="nav-category">🔣 Base85</a>
+            <a href="base64/base100.html" class="nav-category">💯 Base100</a>
+            <a href="base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+            <a href="cn/about.html" class="nav-category" id="lang-switch">🌐 中文</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="page-title">About Us</h1>
+        <p class="page-subtitle">Chuandao AI - Professional Online Tool Service Provider</p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Company Introduction</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">
+            Chuandao AI is a technology company focused on providing high-quality online tool services. We are committed to providing users with convenient, efficient, and secure online tools,
+            especially practical functions such as Base64 encoding/decoding. Our team consists of experienced developers and product designers,
+            always user-oriented, continuously optimizing product experience.
+        </p>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-top: 1rem;">
+            We believe that technology should make life simpler, so we focus on developing tools that can truly solve users' actual problems.
+            From basic encoding/decoding functions to complex image processing, we are all working hard to provide the best user experience.
+        </p>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Our Mission</h2>
+        <ul style="color: #666; line-height: 1.8; font-size: 1.1rem; padding-left: 1.5rem;">
+            <li>Provide users with free and convenient online tool services</li>
+            <li>Ensure the security and privacy of all data processing</li>
+            <li>Continuously improve product functions and enhance user experience</li>
+            <li>Promote technological innovation and create value for society</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Contact Us</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 2rem;">
+            We highly value user feedback and suggestions. If you encounter any problems while using our services,
+            or have any improvement suggestions, please feel free to contact us at any time. We promise to reply to your email within 24 hours.
+        </p>
+        
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Email Address</h4>
+                    <p><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Company Address</h4>
+                    <p>Minzhi Street, Longhua District, Shenzhen</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Service Hours</h4>
+                    <p>Monday to Friday 9:00-18:00</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-reply"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Response Time</h4>
+                    <p>Reply to emails within 24 hours</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-title">Why Choose Us</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">🔒</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">Safe and Reliable</h4>
+                <p style="color: #666; font-size: 0.9rem;">All data processing is done locally to protect your privacy and security</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">⚡</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">Fast and Efficient</h4>
+                <p style="color: #666; font-size: 0.9rem;">Optimized algorithms ensure fast processing and improve work efficiency</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">🆓</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">Completely Free</h4>
+                <p style="color: #666; font-size: 0.9rem;">All functions are completely free to use, no registration or login required</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; color: #007bff; margin-bottom: 1rem;">📱</div>
+                <h4 style="color: #333; margin-bottom: 0.5rem;">Responsive Design</h4>
+                <p style="color: #666; font-size: 0.9rem;">Supports various devices, use anytime, anywhere</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+</div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-categories');
+        nav.classList.toggle('active');
+
+        // Auto close after clicking a menu item
+        document.querySelectorAll('.nav-category').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    }
+    // Language preference handling
+    (function(){
+        try {
+            const saved = localStorage.getItem('preferred_lang');
+            if (saved === 'zh') {
+                // if user prefers zh and we are on EN about, switch to CN
+                // only redirect when path is exactly about.html
+            }
+        } catch(e) {}
+        const langSwitch = document.getElementById('lang-switch');
+        if (langSwitch) {
+            langSwitch.addEventListener('click', function(){
+                try { localStorage.setItem('preferred_lang', 'zh'); } catch(_) {}
+            });
+        }
+    })();
+</script>
+</body>
+</html>

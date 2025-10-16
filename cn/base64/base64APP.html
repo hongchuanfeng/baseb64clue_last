@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>iOS 与 Android Base64 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, iOS, Android, Swift, Kotlin, 移动开发, 传道工具">
+	<meta name="description" content="iOS 与 Android 平台的 Base64 编码/解码 API 与方法，包含 Swift 与 Kotlin 示例，面向移动开发场景。">
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/base64APP.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* 响应式导航栏 */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		/* 为不同的Base编码图标设置不同颜色 */
+		.nav-category[href*="base32"] {
+			filter: hue-rotate(120deg) saturate(1.5);
+		}
+		.nav-category[href*="base58"] {
+			filter: hue-rotate(60deg) saturate(1.5);
+		}
+		.nav-category[href*="base62"] {
+			filter: hue-rotate(0deg) saturate(1.5);
+		}
+		.nav-category[href*="base85"] {
+			filter: hue-rotate(280deg) saturate(1.5);
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* 工具卡片布局 */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* 移动端样式 */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				max-height: 80vh;
+				overflow-y: auto;
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.75rem 1rem;
+				text-decoration: none;
+				border-bottom: 1px solid #f0f0f0;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				transition: background-color 0.3s;
+			}
+
+			.nav-category:hover {
+				background-color: #f8f9fa;
+			}
+
+			.nav-category:last-child {
+				border-bottom: none;
+			}
+
+			.menu-btn {
+				display: block;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+
+			.nav-container {
+				position: relative;
+			}
+
+			.logo img {
+				width: 80px !important;
+				margin-right: 0 !important;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-category {
+				padding: 0.6rem 0.8rem;
+				font-size: 0.85rem;
+			}
+
+			.nav-categories {
+				padding: 0.8rem;
+			}
+
+			nav {
+				padding: 0.8rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" alt="base64" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="../base64/base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="../base64/base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="../base64/image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="../base64/base16.html" class="nav-category">🔟 Base16</a>
+			<a href="../base64/base32.html" class="nav-category">🔤 Base32</a>
+			<a href="../base64/base58.html" class="nav-category">🔡 Base58</a>
+			<a href="../base64/base62.html" class="nav-category">🔠 Base62</a>
+			<a href="../base64/base85.html" class="nav-category">🔣 Base85</a>
+			<a href="../base64/base100.html" class="nav-category">💯 Base100</a>
+			<a href="../base64/base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+			<a href="../../base64/base64APP.html" class="nav-category" id="lang-switch">🌐 EN</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<h1>iOS 与 Android 的 Base64</h1>
+	<p style="margin-top: 12px; line-height: 1.8; color: #333;">
+		本文介绍在 iOS（Swift）与 Android（Kotlin/Java）移动开发中的 Base64 编码/解码用法，
+		包含常用原生 API、常见模式以及移动应用的实用示例。
+	</p>
+
+	<h2 class="category-title">概览</h2>
+	<p style="line-height: 1.9; color: #444;">
+		iOS 与 Android 均提供内置的 Base64 支持：iOS 侧常用 <code>Data</code> 与 <code>String</code> 扩展，
+		Android 侧使用 <code>Base64</code> 工具类。本文涵盖字符串、二进制数据与图片的编码/解码，适配移动端场景。
+	</p>
+
+	<h2 class="category-title">iOS（Swift）示例</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-apple"></i></div>
+			<h3 style="margin-bottom: 8px;">基础字符串 编码/解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import Foundation
+
+// String to Base64
+let text = "Hello, World!"
+let data = text.data(using: .utf8)!
+let base64String = data.base64EncodedString()
+print(base64String) // SGVsbG8sIFdvcmxkIQ==
+
+// Base64 to String
+if let decodedData = Data(base64Encoded: base64String) {
+    let decodedString = String(data: decodedData, encoding: .utf8)
+    print(decodedString) // Hello, World!
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">图片与 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import UIKit
+
+// UIImage to Base64
+func imageToBase64(_ image: UIImage) -> String? {
+    guard let imageData = image.jpegData(compressionQuality: 0.8) else { return nil }
+    return imageData.base64EncodedString()
+}
+
+// Base64 to UIImage
+func base64ToImage(_ base64String: String) -> UIImage? {
+    guard let data = Data(base64Encoded: base64String) else { return nil }
+    return UIImage(data: data)
+}
+
+// Usage
+let image = UIImage(named: "sample")
+let base64Image = imageToBase64(image)
+let restoredImage = base64ToImage(base64Image!)
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-shield-halved"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import Foundation
+
+// URL-safe Base64 encoding
+func urlSafeBase64Encode(_ data: Data) -> String {
+    return data.base64EncodedString()
+        .replacingOccurrences(of: "+", with: "-")
+        .replacingOccurrences(of: "/", with: "_")
+        .replacingOccurrences(of: "=", with: "")
+}
+
+// URL-safe Base64 decoding
+func urlSafeBase64Decode(_ string: String) -> Data? {
+    let base64 = string
+        .replacingOccurrences(of: "-", with: "+")
+        .replacingOccurrences(of: "_", with: "/")
+    
+    // Add padding if needed
+    let padding = String(repeating: "=", count: (4 - base64.count % 4) % 4)
+    return Data(base64Encoded: base64 + padding)
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">Android（Kotlin/Java）示例</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-android"></i></div>
+			<h3 style="margin-bottom: 8px;">基础字符串 编码/解码</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.util.Base64
+
+// Kotlin
+val text = "Hello, World!"
+val encoded = Base64.encodeToString(text.toByteArray(), Base64.DEFAULT)
+println(encoded) // SGVsbG8sIFdvcmxkIQ==
+
+val decoded = String(Base64.decode(encoded, Base64.DEFAULT))
+println(decoded) // Hello, World!
+
+// Java
+String text = "Hello, World!";
+String encoded = Base64.encodeToString(text.getBytes(), Base64.DEFAULT);
+System.out.println(encoded);
+
+byte[] decoded = Base64.decode(encoded, Base64.DEFAULT);
+String result = new String(decoded);
+System.out.println(result);
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-image"></i></div>
+			<h3 style="margin-bottom: 8px;">图片与 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+
+// Kotlin
+fun bitmapToBase64(bitmap: Bitmap): String {
+    val outputStream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+    val byteArray = outputStream.toByteArray()
+    return Base64.encodeToString(byteArray, Base64.DEFAULT)
+}
+
+fun base64ToBitmap(base64String: String): Bitmap? {
+    val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+    return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+}
+
+// Java
+public String bitmapToBase64(Bitmap bitmap) {
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+    byte[] byteArray = outputStream.toByteArray();
+    return Base64.encodeToString(byteArray, Base64.DEFAULT);
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-solid fa-link"></i></div>
+			<h3 style="margin-bottom: 8px;">URL 安全的 Base64</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.util.Base64
+
+// Kotlin
+fun urlSafeBase64Encode(data: ByteArray): String {
+    return Base64.encodeToString(data, Base64.URL_SAFE or Base64.NO_PADDING)
+}
+
+fun urlSafeBase64Decode(base64String: String): ByteArray {
+    return Base64.decode(base64String, Base64.URL_SAFE or Base64.NO_PADDING)
+}
+
+// Java
+public String urlSafeBase64Encode(byte[] data) {
+    return Base64.encodeToString(data, Base64.URL_SAFE | Base64.NO_PADDING);
+}
+
+public byte[] urlSafeBase64Decode(String base64String) {
+    return Base64.decode(base64String, Base64.URL_SAFE | Base64.NO_PADDING);
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">文件 I/O 示例</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-apple"></i></div>
+			<h3 style="margin-bottom: 8px;">iOS 文件操作</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import Foundation
+
+// Save Base64 to file
+func saveBase64ToFile(_ base64String: String, filename: String) {
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let fileURL = documentsPath.appendingPathComponent(filename)
+    try? base64String.write(to: fileURL, atomically: true, encoding: .utf8)
+}
+
+// Load Base64 from file
+func loadBase64FromFile(_ filename: String) -> String? {
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let fileURL = documentsPath.appendingPathComponent(filename)
+    return try? String(contentsOf: fileURL, encoding: .utf8)
+}
+
+// Binary file to Base64
+func fileToBase64(_ fileURL: URL) -> String? {
+    guard let data = try? Data(contentsOf: fileURL) else { return nil }
+    return data.base64EncodedString()
+}
+</code></pre>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-android"></i></div>
+			<h3 style="margin-bottom: 8px;">Android 文件操作</h3>
+			<pre style="white-space: pre-wrap; background:#f8f9fa; padding:12px; border-radius:6px;"><code>import android.content.Context
+import android.util.Base64
+import java.io.File
+import java.io.FileOutputStream
+import java.io.FileInputStream
+
+// Kotlin
+class Base64FileManager(private val context: Context) {
+    
+    fun saveBase64ToFile(base64String: String, filename: String) {
+        val file = File(context.filesDir, filename)
+        file.writeText(base64String)
+    }
+    
+    fun loadBase64FromFile(filename: String): String? {
+        val file = File(context.filesDir, filename)
+        return if (file.exists()) file.readText() else null
+    }
+    
+    fun fileToBase64(filePath: String): String? {
+        val file = File(filePath)
+        if (!file.exists()) return null
+        val bytes = file.readBytes()
+        return Base64.encodeToString(bytes, Base64.DEFAULT)
+    }
+}
+</code></pre>
+		</div>
+	</div>
+
+	<h2 class="category-title">API 参考</h2>
+	<div class="tools-grid">
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-apple"></i></div>
+			<h3 style="margin-bottom: 8px;">iOS Base64 APIs</h3>
+			<ul style="line-height: 1.8; color:#444;">
+				<li><code>Data.base64EncodedString()</code> - 将 Data 编码为 Base64 字符串</li>
+				<li><code>Data(base64Encoded:)</code> - 将 Base64 字符串解码为 Data</li>
+				<li><code>String.data(using:)</code> - 将 String 转为 Data</li>
+				<li><code>String(data:encoding:)</code> - 将 Data 转为 String</li>
+				<li><code>UIImage.jpegData(compressionQuality:)</code> - 将 UIImage 转为 JPEG Data</li>
+				<li><code>UIImage(data:)</code> - 由 Data 创建 UIImage</li>
+			</ul>
+		</div>
+		<div class="tool-card">
+			<div class="tool-icon"><i class="fa-brands fa-android"></i></div>
+			<h3 style="margin-bottom: 8px;">Android Base64 APIs</h3>
+			<ul style="line-height: 1.8; color:#444;">
+				<li><code>Base64.encodeToString(byte[], flags)</code> - 将字节编码为 Base64</li>
+				<li><code>Base64.decode(String, flags)</code> - 将 Base64 解码为字节</li>
+				<li><code>Base64.DEFAULT</code> - 标准编码标志</li>
+				<li><code>Base64.URL_SAFE</code> - URL 安全编码</li>
+				<li><code>Base64.NO_PADDING</code> - 不使用填充字符</li>
+				<li><code>Base64.NO_WRAP</code> - 不换行</li>
+			</ul>
+		</div>
+	</div>
+
+	<h2 class="category-title">最佳实践</h2>
+	<ul style="padding-left: 1.2rem; line-height: 1.9; color:#444;">
+		<li><b>内存管理</b>：图片体积较大时，考虑压缩与流式处理。</li>
+		<li><b>错误处理</b>：解码 Base64 时要处理可能的 nil/异常情况。</li>
+		<li><b>性能</b>：大规模 Base64 操作建议放在后台线程，避免阻塞 UI。</li>
+		<li><b>安全</b>：Base64 不是加密，对敏感数据应使用加密方案。</li>
+		<li><b>URL 安全</b>：在 URL 或 JSON 中嵌入时使用 URL 安全变体。</li>
+		<li><b>文件体积</b>：Base64 体积约增大 33%，大文件场景考虑替代方案。</li>
+	</ul>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// Auto close after clicking a menu item
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+// 语言偏好处理（仅设置偏好，不自动跳转）
+(function(){
+    const langSwitch = document.getElementById('lang-switch');
+    if (langSwitch) {
+        langSwitch.addEventListener('click', function(){
+            try { localStorage.setItem('preferred_lang', 'en'); } catch(_) {}
+        });
+    }
+})();
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>

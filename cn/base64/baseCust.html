@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>自定义 Base64 映射 - 免费在线Base64工具：图像到Base64/SQL Base64/多格式解码</title>
+	<meta name="keywords" content="Base64, 自定义, 字符集, 传道工具">
+	<meta name="description" content="使用自定义字符集进行 Base64 映射转换，全部在本地浏览器执行，安全可靠。">			
+	<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+	<link rel="canonical" href="https://www.base64.club/base64/baseCust.html">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.nav {
+			margin: 0 auto;
+			max-width: 1200px;
+			display: flex;
+			gap: 20px;
+		}
+		.nav-item {
+			color: #666;
+			text-decoration: none;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.container {
+			background: white;
+			padding: 30px;
+			border-radius: 5px;
+		}
+
+		h1 {
+			color: #4CAF50;
+			text-align: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #4CAF50;
+			border-radius: 5px;
+			margin: 10px 0;
+			min-height: 100px;
+			resize: vertical;
+			font-size: 14px;
+		}
+
+		.btn-group {
+			display: flex;
+			gap: 10px;
+			margin: 20px 0;
+			flex-wrap: wrap;
+		}
+
+		.btn-group>button {
+			padding: 12px 25px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: 0.3s;
+			flex: 1;
+			min-width: 120px;
+		}
+
+		#encodeBtn {
+			background: #4CAF50;
+			color: white;
+		}
+
+		#decodeBtn {
+			background: #FF9800;
+			color: white;
+		}
+
+		#clearBtn {
+			background: #f44336;
+			color: white;
+		}
+
+		button:hover {
+			opacity: 0.9;
+			transform: translateY(-2px);
+		}
+
+		.about-base64 {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 30px;
+		}
+
+		.about-base64 h2 {
+			color: #4CAF50;
+			margin-bottom: 15px;
+		}
+
+		.about-base64 li {
+			margin-bottom: 10px;
+			line-height: 1.6;
+			font-size: 14px;
+		}
+	</style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: system-ui, -apple-system, sans-serif;
+		}
+
+		body {
+			background-color: #f5f5f5;
+		}
+
+		/* Responsive navigation bar */
+		nav {
+			background: white;
+			padding: 1rem 2rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			position: relative;
+		}
+
+		.nav-container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-categories {
+			display: flex;
+			gap: 2rem;
+		}
+
+		.nav-category {
+			color: #666;
+			cursor: pointer;
+			transition: color 0.3s;
+			white-space: nowrap;
+			text-decoration: none;
+		}
+
+		.nav-category:hover {
+			color: #007bff;
+		}
+
+		.menu-btn {
+			display: none;
+			background: none;
+			border: none;
+			font-size: 1.2rem;
+			cursor: pointer;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 2rem auto;
+			padding: 0 1rem;
+		}
+
+		/* Tool card layout */
+		.tools-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			padding: 1rem;
+		}
+
+		.tool-card {
+			background: white;
+			border-radius: 8px;
+			padding: 1rem;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			transition: transform 0.3s;
+		}
+
+		.tool-card:hover {
+			transform: translateY(-3px);
+		}
+
+		.tool-icon {
+			font-size: 1.5rem;
+			color: #007bff;
+			margin-bottom: 1rem;
+		}
+
+		.category-title {
+			color: #444;
+			margin: 2rem 0 1rem;
+			padding-left: 1rem;
+		}
+
+		/* Mobile styles */
+		@media (max-width: 768px) {
+			.nav-categories {
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				padding: 1rem;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			}
+
+			.nav-categories.active {
+				display: flex;
+			}
+
+			.nav-category {
+				padding: 0.5rem 0;
+				text-decoration: none;
+			}
+
+			.menu-btn {
+				display: block;
+			}
+
+			nav {
+				padding: 1rem;
+			}
+		}
+	</style>
+	<script src="../static/js/jquery-3.6.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+	<!-- Google tag (gtag.js2) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NMLH22Y6G"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-8NMLH22Y6G');
+	</script>
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7274710287377352"
+			crossorigin="anonymous"></script>
+</head>
+<body>
+<nav>
+	<div class="nav-container">
+		<div class="logo">
+			<a href="../index.html" class="nav-item">
+				<img src="../static/images/logo.png" width="100px" style="margin-right: 60px"/>
+			</a>
+		</div>
+		<button class="menu-btn" onclick="toggleMenu()">☰</button>
+		<div class="nav-categories">
+			<a href="../index.html" class="nav-category">🏠 首页</a>
+			<a href="base64Intro.html" class="nav-category">📚 Base64 原理</a>
+			<a href="base64.html" class="nav-category">🔐 Base64 编码/解码</a>
+			<a href="image2base64.html" class="nav-category">🖼️ 图片/Base64</a>
+			<a href="base16.html" class="nav-category">🔟 Base16</a>
+			<a href="base32.html" class="nav-category">🔤 Base32</a>
+			<a href="base58.html" class="nav-category">🔡 Base58</a>
+			<a href="base62.html" class="nav-category">🔠 Base62</a>
+			<a href="base85.html" class="nav-category">🔣 Base85</a>
+			<a href="base100.html" class="nav-category">💯 Base100</a>
+			<a href="base64SQL.html" class="nav-category">🗃️ SQL Base64</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h1>自定义 Base64 字符集映射</h1>
+
+	<!-- 功能说明 -->
+	<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #4CAF50;">
+		<h3 style="color: #4CAF50; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-info-circle" style="margin-right: 8px;"></i>
+			功能说明
+		</h3>
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔤 自定义字符集</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">使用自定义的64个字符作为Base64字符集</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔄 字符映射</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">在标准Base64和自定义Base64之间转换</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">⚙️ 灵活配置</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">支持自定义填充字符和填充策略</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 8px;">🔒 本地处理</h4>
+				<p style="color: #666; font-size: 14px; margin: 0;">所有操作在本地完成，保护数据安全</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- 使用步骤 -->
+	<div style="background: #fff3e0; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+		<h3 style="color: #f57c00; margin-bottom: 15px; display: flex; align-items: center;">
+			<i class="fas fa-list-ol" style="margin-right: 8px;"></i>
+			使用步骤
+		</h3>
+		<ol style="color: #666; line-height: 1.8; padding-left: 20px; margin: 0;">
+			<li><strong>设置字符集：</strong>在"Alphabet"框中输入64个唯一字符</li>
+			<li><strong>配置填充：</strong>设置标准填充和自定义填充字符</li>
+			<li><strong>输入数据：</strong>在左侧输入标准Base64或自定义Base64</li>
+			<li><strong>转换操作：</strong>点击"Std → Custom"或"Custom → Std"进行转换</li>
+		</ol>
+	</div>
+
+	<div class="tool-card" style="margin-top: 16px;">
+		<div style="display:flex; gap: 16px; flex-wrap: wrap; align-items: flex-end;">
+			<div style="flex:1; min-width: 260px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">字符集（64 个字符）</div>
+				<textarea id="b64c_alphabet" style="min-height: 64px;" placeholder="请输入 64 个唯一字符作为自定义 Base64 字符集"></textarea>
+			</div>
+			<div>
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">标准填充</div>
+				<input id="b64c_stdpad" type="text" value="=" style="padding:8px 10px; border:1px solid #e5e7eb; border-radius:6px; width:80px;" maxlength="1" />
+			</div>
+			<div>
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">自定义填充</div>
+				<input id="b64c_pad" type="text" value="=" style="padding:8px 10px; border:1px solid #e5e7eb; border-radius:6px; width:80px;" maxlength="1" />
+			</div>
+			<div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+				<input id="b64c_usepad" type="checkbox" checked />
+				<label for="b64c_usepad" style="color:#666; font-size:14px;">使用填充</label>
+			</div>
+		</div>
+
+		<div style="display:flex; gap: 16px; flex-wrap: wrap;">
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">📄 标准Base64</div>
+				<textarea id="b64c_input" placeholder="粘贴标准 Base64 到这里（例如：TWFu=）"></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64c_in_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b64c_copyInBtn" style="background:#e5e7eb; color:#111;">复制左侧</button>
+						<button id="b64c_clearBtn">清空</button>
+					</div>
+				</div>
+			</div>
+			<div style="flex:1; min-width: 280px;">
+				<div style="color:#666; font-size: 14px; margin-bottom:6px;">🔧 自定义Base64</div>
+				<textarea id="b64c_output" placeholder="结果（自定义Base64）或粘贴自定义Base64到这里"></textarea>
+				<div style="display:flex; justify-content: space-between; align-items:center; color:#999; font-size:12px;">
+					<span>Length: <span id="b64c_out_len">0</span></span>
+					<div class="btn-group" style="margin: 8px 0;">
+						<button id="b64c_copyOutBtn" style="background:#e5e7eb; color:#111;">复制右侧</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="btn-group">
+			<button id="b64c_encodeBtn">🔤 标准 → 自定义</button>
+			<button id="b64c_decodeBtn">🔓 自定义 → 标准</button>
+			<button id="b64c_swapBtn" style="background:#2196F3; color:#fff;">🔄 交换</button>
+		</div>
+
+		<div id="b64c_error" style="color:#b91c1c; font-size:12px; min-height: 16px;"></div>
+		<div class="about-base64" style="margin-top:12px;">
+			<h2>🔍 自定义Base64映射工作原理</h2>
+			<ul>
+				<li><strong>字符集：</strong>选择任意64个唯一字符作为Base64字符集（标准是A-Z、a-z、0-9、+、/）</li>
+				<li><strong>重新映射：</strong>此工具将字符从源字符集1对1重新映射到目标字符集，不重新编码有效载荷</li>
+				<li><strong>填充：</strong><code>=</code>可以保留、更改为其他符号或完全删除，双方必须一致</li>
+				<li><strong>兼容性：</strong>自定义字符集与标准Base64不兼容，除非接收方知道您的字符集和填充规则</li>
+				<li><strong>安全性：</strong>这是Base64上的文本替换层，本身不添加加密或完整性</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const nav = document.querySelector('.nav-categories');
+		nav.classList.toggle('active');
+
+		// 点击菜单项后自动关闭
+		document.querySelectorAll('.nav-category').forEach(item => {
+			item.addEventListener('click', () => {
+				if (window.innerWidth <= 768) {
+					nav.classList.remove('active');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	function $c(id){ return document.getElementById(id); }
+
+	const STD_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+	function validateAlphabet(alpha){
+		if (alpha.length !== 64) throw new Error('Alphabet must be exactly 64 characters');
+		const set = new Set(alpha.split(''));
+		if (set.size !== 64) throw new Error('Alphabet characters must be unique');
+	}
+
+	function escapeForClass(ch){
+		return ch.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+	}
+
+	// Remap Base64 string from one alphabet to another (preserving padding policy)
+	function remapBase64Alphabet(input, fromAlphabet, toAlphabet, fromPad, toPad, usePadding){
+		validateAlphabet(toAlphabet);
+		validateAlphabet(fromAlphabet);
+		const map = new Map();
+		for (let i = 0; i < fromAlphabet.length; i++) map.set(fromAlphabet[i], toAlphabet[i]);
+		let out = '';
+		for (let i = 0; i < input.length; i++) {
+			const ch = input[i];
+			if (ch === fromPad) { out += usePadding ? toPad : ''; continue; }
+			const mapped = map.get(ch);
+			// Preserve whitespace and non-base64 chars as-is
+			out += mapped !== undefined ? mapped : ch;
+		}
+		if (!usePadding) {
+			out = out.replace(new RegExp(escapeForClass(toPad), 'g'), '');
+		}
+		return out;
+	}
+
+	function updateCounts(){
+		$c('b64c_in_len').textContent = String($c('b64c_input').value.length);
+		$c('b64c_out_len').textContent = String($c('b64c_output').value.length);
+	}
+
+	function showErr(msg){ $c('b64c_error').textContent = msg || ''; }
+
+	document.addEventListener('DOMContentLoaded', function(){
+		// Defaults
+		$c('b64c_alphabet').value = STD_ALPHABET;
+		$c('b64c_usepad').checked = true;
+		$c('b64c_pad').value = '=';
+		$c('b64c_stdpad').value = '=';
+
+		$c('b64c_input').addEventListener('input', updateCounts);
+		updateCounts();
+
+		// Std -> Custom
+		$c('b64c_encodeBtn').addEventListener('click', function(){
+			showErr('');
+			try {
+				const fromAlpha = STD_ALPHABET;
+				const toAlpha = $c('b64c_alphabet').value;
+				const fromPad = ($c('b64c_stdpad').value || '=');
+				const toPad = ($c('b64c_pad').value || '=');
+				const usePad = $c('b64c_usepad').checked;
+				$c('b64c_output').value = remapBase64Alphabet($c('b64c_input').value, fromAlpha, toAlpha, fromPad, toPad, usePad);
+			} catch(e){ showErr('Map failed: ' + e.message); }
+			updateCounts();
+		});
+
+		// Custom -> Std
+		$c('b64c_decodeBtn').addEventListener('click', function(){
+			showErr('');
+			try {
+				const fromAlpha = $c('b64c_alphabet').value;
+				const toAlpha = STD_ALPHABET;
+				const fromPad = ($c('b64c_pad').value || '=');
+				const toPad = ($c('b64c_stdpad').value || '=');
+				const usePad = $c('b64c_usepad').checked;
+				$c('b64c_input').value = remapBase64Alphabet($c('b64c_output').value, fromAlpha, toAlpha, fromPad, toPad, usePad);
+			} catch(e){ showErr('Map failed: ' + e.message); }
+			updateCounts();
+		});
+
+		$c('b64c_swapBtn').addEventListener('click', function(){
+			const t = $c('b64c_input').value;
+			$c('b64c_input').value = $c('b64c_output').value;
+			$c('b64c_output').value = t;
+			updateCounts();
+		});
+
+		$c('b64c_clearBtn').addEventListener('click', function(){
+			$c('b64c_input').value = '';
+			$c('b64c_output').value = '';
+			showErr('');
+			updateCounts();
+		});
+
+		$c('b64c_copyInBtn').addEventListener('click', async function(){
+			const text = $c('b64c_input').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+
+		$c('b64c_copyOutBtn').addEventListener('click', async function(){
+			const text = $c('b64c_output').value;
+			try { await navigator.clipboard.writeText(text); } catch(_) { }
+		});
+	});
+</script>
+<!-- Footer -->
+<footer style="background-color: #f8f9fa; padding: 2rem 0; margin-top: 3rem; border-top: 1px solid #e9ecef;">
+	<div class="container">
+		<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">关于我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>公司：</strong>传道AI</p>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>地址：</strong>深圳市龙华区民治街道</p>
+				<p style="color: #666; line-height: 1.6;">我们致力于提供优质的在线工具服务，为用户提供便捷的Base64编码解码等实用功能。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;"><strong>邮箱：</strong><a href="mailto:hcf@foxmail.com" style="color: #007bff; text-decoration: none;">hcf@foxmail.com</a></p>
+				<p style="color: #666; line-height: 1.6;">如有任何问题或建议，欢迎通过邮箱与我们联系。我们会在24小时内回复您的邮件。</p>
+			</div>
+			<div>
+				<h4 style="color: #333; margin-bottom: 1rem; font-size: 1.1rem;">隐私政策</h4>
+				<p style="color: #666; line-height: 1.6; margin-bottom: 0.5rem;">我们重视您的隐私保护，承诺：</p>
+				<ul style="color: #666; line-height: 1.6; padding-left: 1.2rem;">
+					<li>不会收集您的个人敏感信息</li>
+					<li>所有数据处理均在本地进行</li>
+					<li>不会将您的数据用于商业用途</li>
+					<li>严格遵守相关法律法规</li>
+				</ul>
+			</div>
+		</div>
+		<div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid #e9ecef;">
+			<p style="color: #999; font-size: 0.9rem; margin: 0;">© 2024 传道AI. All rights reserved. | <a href="../privacy.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">隐私政策</a> | <a href="../about.html" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">关于我们</a> | <a href="../about.html#contact" style="color: #007bff; text-decoration: none; margin: 0 0.5rem;">联系我们</a></p>
+		</div>
+	</div>
+</footer>
+
+</body>
+
+</html>
